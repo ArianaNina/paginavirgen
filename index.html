@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Virgen del Socavón 3D</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+<body>
+
+<header>
+<div class="logo">
+<span class="oruro">ORURO</span>
+<span class="bo">BO</span><span class="li">LI</span><span class="via">VIA</span>
+</div>
+
+<nav>
+<div class="menu-ubicacion">
+<a href="#" onclick="abrirUbicacion();return false;">Ubicación</a>
+<div id="ventanaUbicacion">
+<div class="ubicacion-cabeza">
+<span>UBICACIÓN</span>
+<button onclick="cerrarUbicacion()">×</button>
+</div>
+<p>Virgen del Socavón<br>Cerro Santa Bárbara,Oruro</p>
+<iframe src="https://www.google.com/maps?q=-17.9747,-67.12054&z=17&output=embed" loading="lazy"></iframe>
+<a class="mapa-link" href="https://www.google.com/maps/search/?api=1&query=-17.9747,-67.12054" target="_blank">Abrir en Google Maps</a>
+</div>
+</div>
+
+<a href="./historia.html">Historia</a>
+<a href="#">Galería</a>
+
+<div class="menu-contacto">
+<a href="#" onclick="abrirContacto();return false;">Contacto</a>
+<div id="ventanaContacto">
+<div class="contacto-cabeza">
+<span></span>
+<button onclick="cerrarContacto()">×</button>
+</div>
+<p><strong>Univ.Liz Ariana Nina Claros</strong></p>
+<p>Estudiante de Ingeniería Informática</p>
+<p>Correo:<br>arisninaclaros@gmail.com</p>
+<p>Celular:61996084</p>
+</div>
+</div>
+</nav>
+</header>
+
+<section class="hero">
+<div class="texto">
+<p class="mini"></p>
+<div class="titulo-principal">
+<div class="titulo-arriba">LA VIRGEN</div>
+<div class="titulo-centro">DEL</div>
+<div class="titulo-centro">SOCAVÓN</div>
+<div class="titulo-abajo">EN DISEÑO 3D</div>
+</div>
+
+<p class="descripcion">Es el principal símbolo religioso y cultural de Oruro,Patrimonio Cultural Inmaterial de la Humanidad.</p>
+
+<div class="botones">
+<a href="https://ariananina.github.io/socavon/virgen/" class="btn1">Explorar</a>
+<a href="leyenda.html" class="btn1">Leyenda</a>
+</div>
+</div>
+
+<div class="modelo">
+<div id="contenedor3d"></div>
+</div>
+</section>
+
+<!-- PLAGAS -->
+<section class="seccion-plagas">
+<h2 class="titulo-plagas">LAS 4 PLAGAS</h2>
+
+<div class="lugares">
+
+<div class="card">
+<model-viewer src="hormiga.glb" alt="Hormiga 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
+<a href="https://ariananina.github.io/hormiserpi/hormiga/" class="nombre-plaga">LA HORMIGA</a>
+</div>
+
+<div class="card">
+<model-viewer src="serpiente.glb" alt="Serpiente 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
+<a href="https://ariananina.github.io/hormiserpi/serpi/" class="nombre-plaga">LA SERPIENTE</a>
+</div>
+
+<div class="card">
+<model-viewer src="sapo.glb" alt="Sapo 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
+<a href="sapo.html" class="nombre-plaga">EL SAPO</a>
+</div>
+
+<div class="card">
+<model-viewer src="lagar1.glb" alt="Lagarto 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
+<a href="lagarto.html" class="nombre-plaga">EL LAGARTO</a>
+</div>
+
+</div>
+</section>
+
+<script type="importmap">
+{
+"imports":{
+"three":"https://unpkg.com/three@0.166.1/build/three.module.js",
+"three/addons/":"https://unpkg.com/three@0.166.1/examples/jsm/"
+}
+}
+</script>
+
+<script type="module" src="script.js"></script>
+
+<script>
+function abrirUbicacion(){
+document.getElementById("ventanaUbicacion").classList.add("mostrar");
+document.getElementById("ventanaContacto").classList.remove("mostrar");
+}
+function cerrarUbicacion(){
+document.getElementById("ventanaUbicacion").classList.remove("mostrar");
+}
+function abrirContacto(){
+document.getElementById("ventanaContacto").classList.add("mostrar");
+document.getElementById("ventanaUbicacion").classList.remove("mostrar");
+}
+function cerrarContacto(){
+document.getElementById("ventanaContacto").classList.remove("mostrar");
+}
+</script>
+
+</body>
+</html>
