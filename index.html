@@ -1,155 +1,626 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<title>Virgen del Socavón 3D</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Oruro Bolivia | Virgen del Socavón</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <script type="module"
+        src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+    </script>
 </head>
+
 <body>
 
-<header>
-<div class="logo">
-<span class="oruro">ORURO</span>
-<span class="bo">BO</span><span class="li">LI</span><span class="via">VIA</span>
-</div>
+<!-- ================= NAVBAR ================= -->
 
-<nav>
-<div class="menu-ubicacion">
-<a href="#" onclick="abrirUbicacion();return false;">Ubicación</a>
-<div id="ventanaUbicacion">
-<div class="ubicacion-cabeza">
-<span>UBICACIÓN</span>
-<button onclick="cerrarUbicacion()">×</button>
-</div>
-<p>Virgen del Socavón<br>Cerro Santa Bárbara,Oruro</p>
-<iframe src="https://www.google.com/maps?q=-17.9747,-67.12054&z=17&output=embed" loading="lazy"></iframe>
-<a class="mapa-link" href="https://www.google.com/maps/search/?api=1&query=-17.9747,-67.12054" target="_blank">Abrir en Google Maps</a>
-</div>
-</div>
+<header class="navbar">
 
-<a href="./historia.html">Historia</a>
-<a href="#">Galería</a>
+    <div class="logo">
+        <span>ORURO</span>
+        <b>BOLIVIA</b>
+    </div>
 
-<div class="menu-contacto">
-<a href="#" onclick="abrirContacto();return false;">Contacto</a>
-<div id="ventanaContacto">
-<div class="contacto-cabeza">
-<span></span>
-<button onclick="cerrarContacto()">×</button>
-</div>
-<p><strong>Univ.Liz Ariana Nina Claros</strong></p>
-<p>Estudiante de Ingeniería Informática</p>
-<p>Correo:<br>arisninaclaros@gmail.com</p>
-<p>Celular:61996084</p>
-</div>
-</div>
-</nav>
+    <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#plagas">Las 4 Plagas</a>
+        <a href="#cultura">Cultura</a>
+        <a href="#historia">Historia</a>
+        <a href="#galeria">Galería</a>
+        <a href="#ubicacion">Ubicación</a>
+    </nav>
+
 </header>
 
-<section class="hero">
-<div class="texto">
-<p class="mini"></p>
-<div class="titulo-principal">
-<div class="titulo-arriba">LA VIRGEN</div>
-<div class="titulo-centro">DEL</div>
-<div class="titulo-centro">SOCAVÓN</div>
-<div class="titulo-abajo">EN DISEÑO 3D</div>
-</div>
 
-<p class="descripcion">Es el principal símbolo religioso y cultural de Oruro,Patrimonio Cultural Inmaterial de la Humanidad.</p>
+<!-- ================= HERO ================= -->
 
-<div class="botones">
-<a href="https://ariananina.github.io/socavon/virgen/" class="btn1">Explorar</a>
-<a href="https://ariananina.github.io/libro/index.html" class="btn1">Leyenda</a>
-</div>
-</div>
+<section class="hero" id="inicio">
 
-<div class="modelo">
-<div id="contenedor3d"></div>
-</div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-text">
+
+        <span class="eyebrow">
+            FE · CULTURA · TRADICIÓN
+        </span>
+
+        <h1>
+            LA VIRGEN
+            <strong>DEL<br>SOCAVÓN</strong>
+        </h1>
+
+        <p>
+            Descubre la historia, las leyendas y las tradiciones
+            que forman parte de la identidad cultural de Oruro.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#plagas" class="btn-primary">
+                Explorar
+            </a>
+
+            <a href="historia.html" class="btn-secondary">
+                Historia
+            </a>
+
+        </div>
+
+        <div class="scroll">
+            ↓
+            <span>Desliza para descubrir</span>
+        </div>
+    </div>
+
+    <!-- VIRGEN 3D -->
+    <div class="hero-model">
+        <div class="glow"></div>
+        <div id="contenedor3d"></div>
+    </div>
+
 </section>
 
-<!-- PLAGAS -->
-<section class="seccion-plagas">
-<h2 class="titulo-plagas">LAS 4 PLAGAS</h2>
 
-<div class="lugares">
 
-<div class="card">
-    <model-viewer
-        src="https://ariananina.github.io/hormiserpi/hormiga/hormiga.glb"
-        alt="Hormiga 3D"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        exposure="1.5"
-        camera-orbit="0deg 75deg 3m">
-    </model-viewer>
+<!-- ================= PLAGAS ================= -->
 
-    <a href="https://ariananina.github.io/hormiserpi/hormiga/hormiga.html" class="nombre-plaga">
-        LA HORMIGA
-    </a>
-</div>
+<section class="plagas" id="plagas">
 
-<div class="card">
-    <model-viewer
-        src="https://ariananina.github.io/hormiserpi/serpi/serpiente.glb"
-        alt="Serpiente 3D"
-        camera-controls
-        auto-rotate
-        shadow-intensity="1"
-        exposure="1.5"
-        camera-orbit="0deg 75deg 3m">
-    </model-viewer>
+    <div class="section-title">
 
-    <a href="https://ariananina.github.io/hormiserpi/serpi/serpi.html" class="nombre-plaga">
-        LA SERPIENTE
-    </a>
-</div>
+        <span>LEYENDAS DE ORURO</span>
 
-<div class="card">
-<model-viewer src="sapo.glb" alt="Sapo 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
-<a href="sapo.html" class="nombre-plaga">EL SAPO</a>
-</div>
+        <h2>
+            LAS 4 PLAGAS
+        </h2>
 
-<div class="card">
-<model-viewer src="lagar1.glb" alt="Lagarto 3D" camera-controls auto-rotate shadow-intensity="1" exposure="1.5" camera-orbit="0deg 75deg 3m"></model-viewer>
-<a href="lagarto.html" class="nombre-plaga">EL LAGARTO</a>
-</div>
+        <p>
+            Cuatro símbolos que forman parte de una de las
+            leyendas más conocidas de Oruro.
+        </p>
 
-</div>
+    </div>
+
+
+    <div class="plagas-grid">
+
+
+        <!-- HORMIGA -->
+
+        <article class="plaga-card hormiga">
+
+            <div class="numero">
+                01
+            </div>
+
+            <model-viewer
+                src="https://ariananina.github.io/hormiserpi/hormiga/hormiga.glb"
+                alt="Hormiga 3D"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                exposure="1.5"
+                camera-orbit="0deg 75deg 3m">
+            </model-viewer>
+
+            <div class="card-content">
+
+                <span>PLAGA 01</span>
+
+                <h3>
+                    LA HORMIGA
+                </h3>
+
+                <p>
+                    Representa el trabajo,
+                    esfuerzo y prosperidad.
+                </p>
+
+                <a href="https://ariananina.github.io/hormiserpi/hormiga/hormiga.html">
+                    Descubrir →
+                </a>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- SERPIENTE -->
+
+        <article class="plaga-card serpiente">
+
+            <div class="numero">
+                02
+            </div>
+
+            <model-viewer
+                src="https://ariananina.github.io/hormiserpi/serpi/serpiente.glb"
+                alt="Serpiente 3D"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                exposure="1.5"
+                camera-orbit="0deg 75deg 3m">
+            </model-viewer>
+
+            <div class="card-content">
+
+                <span>PLAGA 02</span>
+
+                <h3>
+                    LA SERPIENTE
+                </h3>
+
+                <p>
+                    Símbolo de sabiduría,
+                    transformación y misterio.
+                </p>
+
+                <a href="https://ariananina.github.io/hormiserpi/serpi/serpi.html">
+                    Descubrir →
+                </a>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- SAPO -->
+
+        <article class="plaga-card sapo">
+
+            <div class="numero">
+                03
+            </div>
+
+            <model-viewer
+                src="sapo.glb"
+                alt="Sapo 3D"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                exposure="1.5"
+                camera-orbit="0deg 75deg 3m">
+            </model-viewer>
+
+            <div class="card-content">
+
+                <span>PLAGA 03</span>
+
+                <h3>
+                    EL SAPO
+                </h3>
+
+                <p>
+                    Relacionado con la lluvia,
+                    fertilidad y abundancia.
+                </p>
+
+                <a href="sapo.html">
+                    Descubrir →
+                </a>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- LAGARTO -->
+
+        <article class="plaga-card lagarto">
+
+            <div class="numero">
+                04
+            </div>
+
+            <model-viewer
+                src="lagar1.glb"
+                alt="Lagarto 3D"
+                camera-controls
+                auto-rotate
+                shadow-intensity="1"
+                exposure="1.5"
+                camera-orbit="0deg 75deg 3m">
+            </model-viewer>
+
+            <div class="card-content">
+
+                <span>PLAGA 04</span>
+
+                <h3>
+                    EL LAGARTO
+                </h3>
+
+                <p>
+                    Representa renovación,
+                    protección y buena suerte.
+                </p>
+
+                <a href="lagarto.html">
+                    Descubrir →
+                </a>
+
+            </div>
+
+        </article>
+
+    </div>
+
 </section>
+
+
+
+<!-- ================= SIGNIFICADO ================= -->
+
+<section class="significado">
+
+    <div class="section-title">
+
+        <span>SIMBOLISMO</span>
+
+        <h2>
+            ¿QUÉ REPRESENTAN?
+        </h2>
+
+    </div>
+
+
+    <div class="significado-grid">
+
+        <div class="significado-item">
+            <div class="icon">✦</div>
+            <h3>Trabajo</h3>
+            <p>Esfuerzo y prosperidad</p>
+        </div>
+
+        <div class="significado-item">
+            <div class="icon">◈</div>
+            <h3>Sabiduría</h3>
+            <p>Transformación y conocimiento</p>
+        </div>
+
+        <div class="significado-item">
+            <div class="icon">☼</div>
+            <h3>Fertilidad</h3>
+            <p>Lluvia y abundancia</p>
+        </div>
+
+        <div class="significado-item">
+            <div class="icon">✧</div>
+            <h3>Renovación</h3>
+            <p>Protección y buena suerte</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CULTURA ================= -->
+
+<section class="cultura" id="cultura">
+
+    <div class="section-title">
+
+        <span>DESCUBRE ORURO</span>
+
+        <h2>
+            CULTURA Y TRADICIÓN
+        </h2>
+
+    </div>
+
+
+    <div class="cultura-grid">
+
+        <article class="cultura-card socavon">
+
+            <div>
+                <span>01</span>
+
+                <h3>
+                    EL SOCAVÓN
+                </h3>
+
+                <p>
+                    Un lugar donde la fe y la tradición
+                    se encuentran bajo la tierra.
+                </p>
+
+                <a href="historia.html">
+                    Conocer historia →
+                </a>
+            </div>
+
+        </article>
+
+
+        <article class="cultura-card virgen">
+
+            <div>
+                <span>02</span>
+
+                <h3>
+                    LA VIRGEN
+                </h3>
+
+                <p>
+                    Símbolo de protección y devoción
+                    para el pueblo de Oruro.
+                </p>
+
+                <a href="https://ariananina.github.io/socavon/virgen/">
+                    Explorar →
+                </a>
+            </div>
+
+        </article>
+
+
+        <article class="cultura-card carnaval">
+
+            <div>
+                <span>03</span>
+
+                <h3>
+                    EL CARNAVAL
+                </h3>
+
+                <p>
+                    Música, danza, máscaras y una
+                    tradición reconocida mundialmente.
+                </p>
+
+                <a href="#">
+                    Ver danzas →
+                </a>
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= HISTORIA ================= -->
+
+<section class="historia" id="historia">
+
+    <div class="historia-text">
+
+        <span>UNA HISTORIA QUE PERDURA</span>
+
+        <h2>
+            Oruro a través
+            <strong>del tiempo</strong>
+        </h2>
+
+        <p>
+            La historia de la Virgen del Socavón está
+            profundamente relacionada con la tradición
+            minera, la fe y las expresiones culturales
+            de Oruro.
+        </p>
+
+        <a href="historia.html" class="btn-primary">
+            Conocer la historia
+        </a>
+
+    </div>
+
+
+    <div class="timeline">
+
+        <div>
+            <strong>1600</strong>
+            <p>
+                Aparición de la Virgen
+                en el socavón.
+            </p>
+        </div>
+
+        <div>
+            <strong>1700</strong>
+            <p>
+                Crecimiento de la
+                devoción de los mineros.
+            </p>
+        </div>
+
+        <div>
+            <strong>1900</strong>
+            <p>
+                El Carnaval comienza
+                a tomar fuerza.
+            </p>
+        </div>
+
+        <div>
+            <strong>2001</strong>
+            <p>
+                Reconocimiento como
+                Patrimonio Cultural.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= GALERÍA ================= -->
+
+<section class="galeria" id="galeria">
+
+    <div class="section-title">
+
+        <span>EXPERIENCIA VISUAL</span>
+
+        <h2>
+            GALERÍA
+        </h2>
+
+    </div>
+
+
+    <div class="galeria-grid">
+
+        <div class="galeria-item grande">
+            <img src="galeria1.jpg" alt="Oruro">
+        </div>
+
+        <div class="galeria-item">
+            <img src="galeria2.jpg" alt="Virgen del Socavón">
+        </div>
+
+        <div class="galeria-item">
+            <img src="galeria3.jpg" alt="Carnaval de Oruro">
+        </div>
+
+        <div class="galeria-item">
+            <img src="galeria4.jpg" alt="Danza">
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= UBICACIÓN ================= -->
+
+<section class="ubicacion" id="ubicacion">
+
+    <div class="ubicacion-info">
+
+        <span>VISÍTANOS</span>
+
+        <h2>
+            SANTUARIO DE LA
+            <strong>VIRGEN DEL SOCAVÓN</strong>
+        </h2>
+
+        <p>
+            Cerro Santa Bárbara,
+            Oruro - Bolivia.
+        </p>
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=-17.9747,-67.12054"
+            target="_blank"
+            class="btn-primary">
+
+            Cómo llegar
+        </a>
+
+    </div>
+
+
+    <div class="mapa">
+
+        <iframe
+            src="https://www.google.com/maps?q=-17.9747,-67.12054&z=16&output=embed"
+            loading="lazy">
+        </iframe>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CTA ================= -->
+
+<section class="cta">
+
+    <span>VIVE LA EXPERIENCIA</span>
+
+    <h2>
+        ORURO
+    </h2>
+
+    <p>
+        Fe que protege · Tradición que une
+    </p>
+
+    <a href="#inicio" class="btn-primary">
+        Volver al inicio
+    </a>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-logo">
+        <span>ORURO</span>
+        <b>BOLIVIA</b>
+    </div>
+
+    <p>
+        Universidad Nacional Siglo XX
+    </p>
+
+    <p>
+        Facultad de Ingeniería Informática
+    </p>
+
+    <small>
+        © 2026 · Proyecto cultural sobre Oruro
+    </small>
+
+</footer>
+
+
 
 <script type="importmap">
 {
-"imports":{
-"three":"https://unpkg.com/three@0.166.1/build/three.module.js",
-"three/addons/":"https://unpkg.com/three@0.166.1/examples/jsm/"
-}
+    "imports": {
+        "three": "https://unpkg.com/three@0.166.1/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.166.1/examples/jsm/"
+    }
 }
 </script>
 
 <script type="module" src="script.js"></script>
-
-<script>
-function abrirUbicacion(){
-document.getElementById("ventanaUbicacion").classList.add("mostrar");
-document.getElementById("ventanaContacto").classList.remove("mostrar");
-}
-function cerrarUbicacion(){
-document.getElementById("ventanaUbicacion").classList.remove("mostrar");
-}
-function abrirContacto(){
-document.getElementById("ventanaContacto").classList.add("mostrar");
-document.getElementById("ventanaUbicacion").classList.remove("mostrar");
-}
-function cerrarContacto(){
-document.getElementById("ventanaContacto").classList.remove("mostrar");
-}
-</script>
 
 </body>
 </html>
