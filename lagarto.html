@@ -2,235 +2,1802 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Las 4 Plagas - Lagarto</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-<script type="module"
+<title>Las 4 Plagas - El Lagarto</title>
+<script
+type="module"
 src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
 </script>
-
 <style>
-
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+===================================================== */
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
-
-html, body{
-    margin:0;
+html,
+body{
     width:100%;
     height:100%;
     overflow:hidden;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
 }
-
-/* FONDO */
 body{
-    background-image:url("fondolagar.jpg");
+
+    background-image:
+        linear-gradient(
+            rgba(5,15,20,.15),
+            rgba(5,15,20,.38)
+        ),
+        url("fondolagar.jpg");
+
     background-size:cover;
+    background-position:center;
     background-repeat:no-repeat;
-    background-position:center -200px;
-}
-/* TÍTULO */
-.titulo{
-    position:absolute;
-    top:25px;
-    left:70%;
-    transform:translateX(-50%);
-    z-index:100;
-    text-align:center;
-    color:#000;
-}
-/* LAS 4 PLAGAS */
-.titulo-pequeno{
-    font-size:39px;
-    font-weight:900;
-    letter-spacing:8px;
-    white-space:nowrap;
-    margin-bottom:-5px;
+
+    color:white;
 }
 
-/* EL LAGARTO */
-.titulo-grande{
-    font-size:95px;
-    font-weight:800;
-    line-height:0.9;
-    letter-spacing:-5px;
-    white-space:nowrap;
-}
-/* CONTENIDO PRINCIPAL */
-
-.contenido{
+.pagina{
     width:100%;
     height:100vh;
+    position:relative;
+    overflow:hidden;
+}
+
+/* NAVBAR */
+.navbar{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:92px;
+
+    padding:0 42px;
+
+    display:flex;
+    align-items:center;
+
+    z-index:1000;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.35),
+            transparent
+        );
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.logo{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:white;
+    min-width:220px;
+}
+
+.logo-icon{
+    width:43px;
+    height:43px;
+    border:
+        1px solid
+        rgba(255,255,255,.7);
+
+    border-radius:50%;
 
     display:flex;
     align-items:center;
     justify-content:center;
-    padding-top:110px;
+
+    font-size:21px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+        0 0 15px
+        rgba(255,255,255,.08);
 }
-/* TEXTO - LADO IZQUIERDO */
+
+.logo-text{
+    font-family:Georgia,serif;
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:1.5px;
+    line-height:1.1;
+}
+.logo-text span{
+    display:block;
+    font-family:Arial,sans-serif;
+    font-size:9px;
+    letter-spacing:3px;
+    opacity:.7;
+    margin-top:4px;
+}
+/* =====================================================
+   MENÚ PRINCIPAL
+===================================================== */
+.menu{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    height:100%;
+    gap:4px;
+}
+
+.menu-item{
+
+    position:relative;
+
+    height:100%;
+
+    display:flex;
+    align-items:center;
+}
+
+.menu-link{
+    height:44px;
+    padding:0 16px;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:white;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:.5px;
+    border-radius:25px;
+    transition:.3s;
+    white-space:nowrap;
+}
+
+.menu-link:hover{
+
+    background:
+        rgba(255,255,255,.13);
+
+    backdrop-filter:blur(8px);
+}
+
+.flecha-menu{
+
+    font-size:10px;
+
+    transition:.3s;
+}
+
+.menu-item:hover .flecha-menu{
+
+    transform:rotate(180deg);
+}
+
+
+/* =====================================================
+   DROPDOWN
+===================================================== */
+
+.dropdown{
+    position:absolute;
+    top:74px;
+    left:50%;
+    transform:
+        translateX(-50%)
+        translateY(10px);
+    width:230px;
+    padding:9px;
+    border-radius:18px;
+    background:
+        rgba(20,14,8,.92);
+    border:
+        1px solid
+        rgba(255,255,255,.22);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.45);
+    opacity:0;
+    visibility:hidden;
+    transition:.25s ease;
+    z-index:2000;
+}
+.menu-item:hover .dropdown{
+    opacity:1;
+    visibility:visible;
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+.dropdown::before{
+
+    content:"";
+    position:absolute;
+    top:-6px;
+    left:50%;
+    width:12px;
+    height:12px;
+
+    background:
+        rgba(20,14,8,.92);
+
+    border-left:
+        1px solid
+        rgba(255,255,255,.22);
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.22);
+
+    transform:
+        translateX(-50%)
+        rotate(45deg);
+}
+
+.dropdown a{
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    padding:12px 13px;
+    color:white;
+    text-decoration:none;
+    border-radius:11px;
+    font-size:13px;
+    transition:.25s;
+}
+.dropdown a:hover{
+    background:
+        rgba(218,171,89,.18);
+    color:#f1c878;
+    padding-left:18px;
+}
+.dropdown-icon{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:
+        rgba(255,255,255,.08);
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    font-size:13px;
+}
+/* =====================================================
+   BOTONES
+===================================================== */
+
+.btn-galeria-menu{
+
+    border:
+        1px solid
+        rgba(255,255,255,.35);
+}
+
+.btn-contacto{
+
+    background:
+        rgba(190,130,45,.30);
+
+    border:
+        1px solid
+        rgba(230,190,110,.45);
+}
+
+
+/* =====================================================
+   HAMBURGUESA
+===================================================== */
+
+.menu-toggle{
+
+    display:none;
+
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.45);
+
+    background:
+        rgba(0,0,0,.25);
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+    align-items:center;
+    justify-content:center;
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.titulo{
+    position:absolute;
+    top:112px;
+    right:8%;
+    z-index:100;
+    text-align:left;
+    color:white;
+    text-shadow:
+        0 4px 15px
+        rgba(0,0,0,.6);
+}
+.titulo-pequeno{
+    font-family:Georgia,serif;
+    font-size:20px;
+    font-weight:400;
+    letter-spacing:5px;
+    margin-bottom:10px;
+}
+
+.titulo-grande{
+
+    font-family:Georgia,serif;
+
+    font-size:68px;
+
+    font-weight:900;
+    line-height:.9;
+    letter-spacing:-2px;
+    white-space:nowrap;
+}
+
+.subtitulo{
+    margin-top:15px;
+    font-family:Georgia,serif;
+    font-size:16px;
+    color:
+        rgba(255,255,255,.82);
+}
+
+/* =====================================================
+   CONTENIDO
+===================================================== */
+
+.contenido{
+    width:100%;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding-top:80px;
+}
+
+
+/* =====================================================
+   TEXTO
+===================================================== */
 
 .texto{
+    position:relative;
+    transform:translateY(-30px);
     width:38%;
-    min-height:400px;
-
-    margin-left:6%;
-    margin-right:2%;
-
-    padding:40px;
-    background:rgba(255,255,255,0.35);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    border:1px solid rgba(255,255,255,0.5);
-    border-radius:25px;
-    box-shadow:0 10px 35px rgba(0,0,0,0.25);
-    color:#111;
+    min-height:430px;
+    margin-left:5%;
+    margin-right:3%;
+    padding:38px 43px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(25,38,42,.73),
+            rgba(15,25,28,.50)
+        );
+    border:
+        1px solid
+        rgba(255,255,255,.28);
+    border-radius:22px;
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,.35),
+        inset 0 0 25px
+        rgba(255,255,255,.03);
+    color:white;
+    z-index:30;
+    animation:
+        aparecerTexto .8s ease;
 }
 
+/* =====================================================
+   BORDE DORADO
+===================================================== */
+.texto::before{
+    content:"";
+    position:absolute;
+    top:-1px;
+    left:30px;
+    width:90px;
+    height:2px;
+    background:
+        linear-gradient(
+            90deg,
+            #e8c46b,
+            transparent
+        );
+}
+/* =====================================================
+   TEXTO
+===================================================== */
 .texto h2{
-    margin-top:0;
-    font-size:32px;
+    margin:0 0 8px;
+    font-family:Georgia,serif;
+    font-size:18px;
+    letter-spacing:3px;
+    color:#e7c36d;
+}
+
+.titulo-card{
+    font-family:Georgia,serif;
+    font-size:42px;
     font-weight:900;
+    letter-spacing:-1px;
+    margin-bottom:20px;
+}
+
+.decoracion{
+
+    width:100%;
+
+    height:1px;
+
+    background:
+        rgba(255,255,255,.35);
+
+    position:relative;
+
+    margin-bottom:25px;
+}
+
+.decoracion span{
+
+    position:absolute;
+
+    left:50%;
+
+    top:50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(45deg);
+
+    width:11px;
+
+    height:11px;
+
+    background:#1b292c;
+
+    border:
+        1px solid
+        #e1bf67;
 }
 
 .texto p{
-    font-size:18px;
+
+    font-family:Georgia,serif;
+
+    font-size:15px;
+
     line-height:1.6;
-    text-align:justify;
+
+    text-align:left;
+
+    color:
+        rgba(255,255,255,.88);
+
+    margin-bottom:16px;
 }
 
-/* MODELO 3D - LADO DERECHO */
+
+/* =====================================================
+   BOTÓN LEYENDA
+===================================================== */
+
+.btn-leyenda{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:5px;
+    padding:13px 23px;
+    border-radius:25px;
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(82,122,180,.80),
+            rgba(61,103,160,.50)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.55);
+
+    box-shadow:
+        0 0 18px
+        rgba(75,130,220,.50);
+
+    transition:.3s;
+}
+
+.btn-leyenda:hover{
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 0 30px
+        rgba(90,150,240,.85);
+}
+
+.flecha{
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.btn-leyenda:hover .flecha{
+
+    transform:
+        translateX(5px);
+}
+
+
+/* =====================================================
+   MODELO 3D
+===================================================== */
 
 .modelo{
     width:55%;
     height:80vh;
+    position:relative;
+    top:-30px;
+    z-index:10;
+    filter:
+        drop-shadow(
+            0 30px 25px
+            rgba(0,0,0,.45)
+        );
+
+    animation:
+        aparecerModelo 1s ease;
 }
 model-viewer{
+
     width:100%;
+
     height:100%;
+
     background:transparent;
+
+    --poster-color:transparent;
 }
 
-/* BOTÓN INICIO */
 
-.btn-volver{
+/* =====================================================
+   INDICADORES
+===================================================== */
+
+.indicadores{
+
     position:absolute;
-    top:25px;
-    left:50px;
-    z-index:1000;
 
-    padding:12px 30px;
+    right:24px;
 
-    background:rgba(255,255,255,0.25);
+    top:50%;
 
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
+    transform:
+        translateY(-50%);
 
-    border:1px solid rgba(255,255,255,0.5);
-    border-radius:25px;
+    display:flex;
 
-    color:#111;
+    flex-direction:column;
 
-    font-size:20px;
-    font-weight:bold;
+    gap:15px;
+
+    z-index:50;
+}
+
+.indicador{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.75);
+
+    background:transparent;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.indicador.activo{
+
+    background:white;
+
+    box-shadow:
+        0 0 13px white;
+
+    transform:scale(1.25);
+}
+
+.indicador:hover{
+
+    background:white;
+
+    transform:scale(1.15);
+}
+
+
+/* =====================================================
+   BOTÓN GALERÍA
+===================================================== */
+
+.btn-galeria{
+
+    position:absolute;
+
+    left:35px;
+
+    bottom:72px;
+
+    z-index:50;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:11px 17px;
+
+    color:white;
+
     text-decoration:none;
 
-    transition:0.3s;
+    font-size:12px;
+
+    border-radius:8px;
+
+    background:
+        rgba(15,20,25,.55);
+
+    border:
+        1px solid
+        rgba(255,255,255,.35);
+
+    backdrop-filter:blur(8px);
+
+    transition:.3s;
 }
-.btn-volver:hover{
-    background:rgba(255,255,255,0.45);
-    transform:scale(1.05);
+
+.btn-galeria:hover{
+
+    background:
+        rgba(255,255,255,.15);
+
+    border-color:#e5c16c;
+
+    color:#f0d17c;
+}
+
+.icono-galeria{
+
+    font-size:17px;
 }
 
 
-/* CELULAR */
+/* =====================================================
+   FLECHAS
+===================================================== */
+
+.flechas{
+
+    position:absolute;
+
+    right:4%;
+
+    bottom:65px;
+
+    z-index:50;
+
+    display:flex;
+
+    gap:12px;
+}
+
+.flecha-navegacion{
+
+    width:43px;
+
+    height:43px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        rgba(15,25,30,.50);
+
+    border:
+        1px solid
+        rgba(255,255,255,.45);
+
+    color:white;
+
+    font-size:21px;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+.flecha-navegacion:hover{
+
+    border-color:#e5c16c;
+
+    color:#e5c16c;
+
+    transform:scale(1.08);
+}
+
+
+/* =====================================================
+   BARRA INFERIOR
+===================================================== */
+
+.info-bar{
+
+    position:absolute;
+
+    bottom:12px;
+
+    left:2.5%;
+
+    width:95%;
+
+    height:52px;
+
+    border-radius:10px;
+
+    background:
+        rgba(8,18,22,.65);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    backdrop-filter:blur(10px);
+
+    display:flex;
+
+    align-items:center;
+
+    z-index:80;
+}
+
+.info-item{
+
+    flex:1;
+
+    height:70%;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:0 25px;
+
+    border-right:
+        1px solid
+        rgba(255,255,255,.17);
+}
+
+.info-item:last-child{
+
+    border-right:none;
+}
+
+.info-icon{
+
+    width:32px;
+
+    font-size:21px;
+
+    text-align:center;
+
+    color:#e2c36c;
+}
+
+.info-title{
+
+    font-size:11px;
+
+    font-weight:bold;
+
+    margin-bottom:3px;
+}
+
+.info-sub{
+
+    font-size:10px;
+
+    opacity:.65;
+}
+
+
+/* =====================================================
+   MENÚ MÓVIL
+===================================================== */
+
+.menu-movil{
+
+    position:fixed;
+
+    top:0;
+
+    right:-100%;
+
+    width:300px;
+
+    height:100vh;
+
+    z-index:5000;
+
+    padding:
+        90px 25px 30px;
+
+    background:
+        rgba(17,12,7,.97);
+
+    backdrop-filter:blur(20px);
+
+    border-left:
+        1px solid
+        rgba(255,255,255,.18);
+
+    box-shadow:
+        -15px 0 45px
+        rgba(0,0,0,.5);
+
+    transition:
+        right .35s ease;
+
+    overflow-y:auto;
+}
+
+.menu-movil.abierto{
+
+    right:0;
+}
+
+.cerrar-menu{
+
+    position:absolute;
+
+    top:25px;
+
+    right:20px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    color:white;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.movil-titulo{
+
+    font-family:Georgia,serif;
+
+    color:#e9c276;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+    margin-bottom:20px;
+}
+
+.movil-link{
+
+    display:block;
+
+    padding:14px 8px;
+
+    color:white;
+
+    text-decoration:none;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.10);
+
+    font-size:14px;
+}
+
+.movil-link:hover{
+
+    color:#e9c276;
+}
+
+.movil-dropdown{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    cursor:pointer;
+}
+
+.movil-submenu{
+
+    display:none;
+
+    padding-left:15px;
+}
+
+.movil-submenu.abierto{
+
+    display:block;
+}
+
+.movil-submenu a{
+
+    display:block;
+
+    color:
+        rgba(255,255,255,.75);
+
+    text-decoration:none;
+
+    padding:11px 5px;
+
+    font-size:13px;
+}
+
+.movil-submenu a:hover{
+
+    color:#e9c276;
+}
+
+
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(0,0,0,.45);
+
+    z-index:4000;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+}
+
+.overlay.activo{
+
+    opacity:1;
+
+    visibility:visible;
+}
+
+
+/* =====================================================
+   ANIMACIONES
+===================================================== */
+
+@keyframes aparecerModelo{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(40px)
+            scale(.95);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0)
+            scale(1);
+    }
+}
+
+@keyframes aparecerTexto{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateX(-30px);
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateX(0);
+    }
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media(max-width:1100px){
+
+    .navbar{
+
+        padding:0 20px;
+    }
+
+    .logo{
+
+        min-width:180px;
+    }
+
+    .menu{
+
+        gap:0;
+    }
+
+    .menu-link{
+
+        padding:0 9px;
+
+        font-size:10px;
+    }
+
+    .titulo{
+
+        right:5%;
+    }
+
+    .titulo-grande{
+
+        font-size:57px;
+    }
+
+    .texto{
+
+        width:40%;
+
+        padding:30px;
+    }
+
+    .texto p{
+
+        font-size:13px;
+    }
+}
+
+
+/* =====================================================
+   CELULAR
+===================================================== */
 
 @media(max-width:800px){
 
+    html,
+    body{
+
+        overflow-y:auto;
+
+        overflow-x:hidden;
+    }
+
+    .pagina{
+
+        height:auto;
+
+        min-height:100vh;
+
+        overflow:hidden;
+    }
+
+
+    /* NAVBAR */
+
+    .navbar{
+
+        height:75px;
+
+        padding:0 18px;
+
+        justify-content:space-between;
+    }
+
+    .logo{
+
+        min-width:auto;
+    }
+
+    .logo-icon{
+
+        width:36px;
+
+        height:36px;
+
+        font-size:17px;
+    }
+
+    .logo-text{
+
+        font-size:12px;
+    }
+
+    .logo-text span{
+
+        font-size:8px;
+    }
+
+    .menu{
+
+        display:none;
+    }
+
+    .menu-toggle{
+
+        display:flex;
+    }
+
+
+    /* TÍTULO */
+
     .titulo{
-        left:50%;
+
+        top:95px;
+
+        left:25px;
+
+        right:auto;
     }
-    .titulo-grande{
-        font-size:55px;
-    }
+
     .titulo-pequeno{
-        font-size:15px;
-        letter-spacing:5px;
+
+        font-size:13px;
+
+        letter-spacing:4px;
     }
+
+    .titulo-grande{
+
+        font-size:43px;
+
+        letter-spacing:-1px;
+    }
+
+    .subtitulo{
+
+        font-size:13px;
+
+        margin-top:10px;
+    }
+
+
+    /* CONTENIDO */
+
     .contenido{
-        flex-direction:column-reverse;
-        padding-top:120px;
+
+        height:auto;
+
+        min-height:100vh;
+
+        padding-top:175px;
+
+        flex-direction:column;
     }
-    .modelo{
-        width:100%;
-        height:45vh;
-    }
+
+
+    /* TEXTO */
+
     .texto{
+
         width:90%;
+
         min-height:auto;
-        margin:0;
-        padding:25px;
+
+        margin:0 auto 10px;
+
+        padding:27px;
+
+        order:1;
     }
+
+    .titulo-card{
+
+        font-size:34px;
+    }
+
+    .texto p{
+
+        font-size:14px;
+    }
+
+
+    /* MODELO */
+
+    .modelo{
+
+        width:100%;
+
+        height:48vh;
+
+        order:2;
+    }
+
+
+    .indicadores{
+
+        display:none;
+    }
+
+
+    /* GALERÍA */
+
+    .btn-galeria{
+
+        left:20px;
+
+        bottom:70px;
+    }
+
+
+    /* FLECHAS */
+
+    .flechas{
+
+        right:20px;
+
+        bottom:65px;
+    }
+
+
+    .info-bar{
+
+        display:none;
+    }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<!-- BOTÓN PARA VOLVER -->
 
-<a href="./index.html" class="btn-volver">
-    Inicio
-</a>
-<!-- TÍTULO -->
+<div class="pagina">
 
-<div class="titulo">
-    <div class="titulo-pequeno">
-        LAS 4 PLAGAS </div>
 
-    <div class="titulo-grande">
-        EL LAGARTO</div>
+<!-- ===================================================
+     NAVBAR
+=================================================== -->
 
+<header class="navbar">
+
+
+    <!-- LOGO -->
+
+    <a
+        href="https://ariananina.github.io/paginavirgen/"
+        class="logo">
+
+        <div class="logo-icon">
+            ✦
+        </div>
+
+        <div class="logo-text">
+
+            LAS 4 PLAGAS
+
+            <span>
+                ORURO · BOLIVIA
+            </span>
+
+        </div>
+
+    </a>
+
+
+    <!-- MENÚ DESKTOP -->
+
+    <nav class="menu">
+
+
+        <div class="menu-item">
+
+            <a
+                href="https://ariananina.github.io/paginavirgen/"
+                class="menu-link">
+
+                INICIO
+
+            </a>
+
+        </div>
+
+        <!-- GALERÍA -->
+
+        <!-- GALERÍA -->
+
+        <div class="menu-item">
+
+            <a
+                href="#galeria"
+                class="menu-link btn-galeria-menu">
+
+                GALERÍA
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HAMBURGUESA -->
+
+    <button
+        class="menu-toggle"
+        id="abrirMenu">
+
+        ☰
+
+    </button>
+
+
+</header>
+
+
+
+<!-- ===================================================
+     MENÚ MÓVIL
+=================================================== -->
+
+<div
+    class="overlay"
+    id="overlay">
 </div>
-<!-- CONTENIDO -->
-<div class="contenido">
 
 
-    <!-- TEXTO LADO IZQUIERDO -->
-    <div class="texto">
-        <h2>LEYENDA</h2>
-        <p>
-            Cuenta la leyenda que Huari envió un gigantesco lagarto para
-            destruir al pueblo de los Urus. La enorme criatura avanzó
-            amenazando con acabar con sus habitantes y sembrar el terror
-            en la región.
-        </p>
-        <p>
-            Sin embargo, Ñusta intervino para proteger al pueblo y logró
-            vencer al lagarto, convirtiéndolo en piedra. Desde entonces,
-            forma parte de las cuatro plagas de Oruro y de las antiguas
-            leyendas de la ciudad.
-        </p>
+<aside
+    class="menu-movil"
+    id="menuMovil">
+
+
+    <button
+        class="cerrar-menu"
+        id="cerrarMenu">
+
+        ×
+
+    </button>
+
+
+    <div class="movil-titulo">
+
+        NAVEGACIÓN
 
     </div>
-    <!-- MODELO 3D LADO DERECHO -->
-    <div class="modelo">
 
+
+    <a
+        href="https://ariananina.github.io/paginavirgen/"
+        class="movil-link">
+
+        INICIO
+
+    </a>
+
+
+
+
+    <div
+        class="movil-submenu"
+        id="cultura">
+
+
+        <a href="#carnaval">
+            🎭 Carnaval de Oruro
+        </a>
+
+
+        <a href="#diablada">
+            👹 La Diablada
+        </a>
+
+        <a href="#tradiciones">
+            ✦ Tradiciones
+        </a>
+
+    </div>
+    <a
+        href="#galeria"
+        class="movil-link">
+
+        GALERÍA
+
+    </a>
+
+</aside>
+
+
+<!-- ===================================================
+     INDICADORES
+=================================================== -->
+
+<div class="indicadores">
+
+    <!-- HORMIGA -->
+    <a
+        href="https://ariananina.github.io/hormiserpi/hormiga/hormiga.html"
+        class="indicador">
+    </a>
+
+    <!-- SERPIENTE -->
+
+    <a
+        href="https://ariananina.github.io/hormiserpi/serpi/serpi.html"
+        class="indicador">
+    </a>
+
+    <!-- SAPO -->
+
+    <a
+        href="./sapo.html"
+        class="indicador">
+    </a>
+
+
+    <!-- LAGARTO -->
+
+    <a
+        href="./lagarto.html"
+        class="indicador activo">
+    </a>
+
+
+</div>
+
+
+
+<!-- ===================================================
+     CONTENIDO
+=================================================== -->
+
+<div class="contenido">
+
+    <!-- TEXTO -->
+
+    <div class="texto">
+
+
+        <h2>
+            LA HISTORIA
+        </h2>
+
+
+        <div class="titulo-card">
+
+            EL LAGARTO
+
+        </div>
+
+        <div class="decoracion">
+
+            <span></span>
+
+        </div>
+
+
+        <p>
+
+            Cuenta la leyenda que Huari envió un
+            gigantesco lagarto para destruir al pueblo
+            de los Urus.
+
+        </p>
+
+        <p>
+            La enorme criatura avanzó amenazando
+            con acabar con sus habitantes y sembrar
+            el terror en la región.
+        </p>
+        <p>
+
+            Sin embargo, Ñusta intervino para
+            proteger al pueblo y logró vencer al
+            lagarto, convirtiéndolo en piedra.
+
+        </p>
+     
+    </div>
+    <!-- MODELO 3D -->
+    <div class="modelo">
         <model-viewer
+
             src="lagar1.glb"
             alt="Lagarto 3D"
             camera-controls
+            auto-rotate
             shadow-intensity="1"
+            shadow-softness="1"
             exposure="1.4"
+            environment-image="neutral"
             camera-orbit="0deg 75deg 1.5m"
             camera-target="0m 0m 0m"
             field-of-view="35deg">
-
         </model-viewer>
-
     </div>
 </div>
 
+<!-- ===================================================
+     BARRA INFERIOR
+=================================================== -->
+<div class="info-bar">
+    <div class="info-item">
+        <div class="info-icon">
+            ♧
+        </div>
+
+        <div>
+
+            <div class="info-title">
+                LEYENDA ANCESTRAL 
+            </div>
+
+            <div class="info-sub">
+                Historia y tradición
+            </div>
+        </div>
+    </div>
+
+    <div class="info-item">
+
+        <div class="info-icon">
+            ✧
+        </div>
+
+        <div>
+
+            <div class="info-title">
+                SIMBOLO DE PROTECCION
+            </div>
+
+            <div class="info-sub">
+                Defensor del pueblo
+            </div>
+        </div>
+    </div>
+
+    <div class="info-item">
+
+        <div class="info-icon">
+            ⚔
+        </div>
+        <div>
+
+            <div class="info-title">
+                PARTE DE LAS 4 PLAGAS 
+            </div>
+
+            <div class="info-sub">
+                Patrimonio de Oruro
+            </div>
+        </div>
+    </div>
+
+    <div class="info-item">
+
+        <div class="info-icon">
+            ♜
+        </div>
+        <div>
+
+            <div class="info-title">
+                CULTURA VIVA
+            </div>
+
+
+            <div class="info-sub">
+                Orgullo orureño
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+/* =====================================================
+   MENÚ MÓVIL
+===================================================== */
+
+const abrirMenu =
+document.getElementById("abrirMenu");
+
+const cerrarMenu =
+document.getElementById("cerrarMenu");
+
+const menuMovil =
+document.getElementById("menuMovil");
+
+const overlay =
+document.getElementById("overlay");
+
+
+/* ABRIR MENÚ */
+
+abrirMenu.addEventListener(
+    "click",
+    function(){
+
+        menuMovil.classList.add("abierto");
+
+        overlay.classList.add("activo");
+
+    }
+);
+
+
+/* CERRAR MENÚ */
+
+function cerrar(){
+
+    menuMovil.classList.remove("abierto");
+
+    overlay.classList.remove("activo");
+
+}
+
+
+cerrarMenu.addEventListener(
+    "click",
+    cerrar
+);
+
+
+overlay.addEventListener(
+    "click",
+    cerrar
+);
+
+
+/* =====================================================
+   SUBMENÚS MÓVILES
+===================================================== */
+
+const botonesSubmenu =
+document.querySelectorAll(
+    ".movil-dropdown"
+);
+
+
+botonesSubmenu.forEach(
+    boton => {
+
+        boton.addEventListener(
+            "click",
+            function(){
+
+                const id =
+                    this.dataset.submenu;
+
+                const submenu =
+                    document.getElementById(id);
+
+                submenu.classList.toggle(
+                    "abierto"
+                );
+
+            }
+        );
+
+    }
+);
+
+
+/* =====================================================
+   CERRAR MENÚ AL SELECCIONAR
+===================================================== */
+
+const enlacesMovil =
+document.querySelectorAll(
+    ".movil-submenu a, .menu-movil > .movil-link:not(.movil-dropdown)"
+);
+
+
+enlacesMovil.forEach(
+    enlace => {
+
+        enlace.addEventListener(
+            "click",
+            cerrar
+        );
+
+    }
+);
+
+</script>
+
+
 </body>
+
 </html>
