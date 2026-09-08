@@ -899,7 +899,7 @@ section{
             rgba(0,0,0,.85),
             rgba(0,0,0,.05)
         ),
-        url("socavon.jpg");
+        url("soca.jpg");
 }
 
 .cultura-card.virgen{
@@ -909,7 +909,7 @@ section{
             rgba(20,0,30,.9),
             rgba(0,0,0,.05)
         ),
-        url("virgen.jpg");
+        url("vir.jpg");
 }
 
 .cultura-card.carnaval{
@@ -919,7 +919,7 @@ section{
             rgba(0,0,0,.85),
             rgba(0,0,0,.05)
         ),
-        url("carnaval.jpg");
+        url("car.jpg");
 }
 
 
