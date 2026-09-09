@@ -286,7 +286,7 @@ body{
 ===================================================== */
 
 .btn-galeria-menu{
-
+ color:#000 !important;
     border:
         1px solid
         rgba(255,255,255,.35);
@@ -1334,6 +1334,50 @@ model-viewer{
     }
 
 }
+.galeria-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:6000;
+    background:rgba(0,0,0,.90);
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
+
+.galeria-modal.activo{
+    display:flex;
+}
+
+.galeria-modal h2{
+    color:white;
+    margin-bottom:25px;
+    font-family:Georgia,serif;
+    letter-spacing:3px;
+}
+
+.galeria-imagenes{
+    display:flex;
+    gap:20px;
+}
+
+.galeria-imagenes img{
+    width:300px;
+    height:230px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.cerrar-galeria{
+    position:absolute;
+    top:25px;
+    right:35px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
 
 </style>
 
@@ -1394,23 +1438,34 @@ model-viewer{
         </div>
 
         <!-- GALERÍA -->
+<div class="menu-item">
 
-        <!-- GALERÍA -->
+    <button
+        class="menu-link btn-galeria-menu"
+        id="abrirGaleria">
 
-        <div class="menu-item">
+        GALERÍA
 
-            <a
-                href="#galeria"
-                class="menu-link btn-galeria-menu">
-
-                GALERÍA
-
-            </a>
-
-        </div>
-
+    </button>
+</div>
     </nav>
+<div class="galeria-modal" id="galeriaModal">
 
+    <button class="cerrar-galeria" id="cerrarGaleria">×</button>
+
+    <h2>GALERÍA · EL LAGARTO</h2>
+
+    <div class="galeria-imagenes">
+
+        <img src="la1.jpg" alt="El Lagarto 1">
+
+        <img src="la2.jpg" alt="El Lagarto 2">
+
+        <img src="la3.jpg" alt="El Lagarto 3">
+
+    </div>
+
+</div>
 
     <!-- HAMBURGUESA -->
 
@@ -1794,7 +1849,17 @@ enlacesMovil.forEach(
 
     }
 );
+const abrirGaleria = document.getElementById("abrirGaleria");
+const cerrarGaleria = document.getElementById("cerrarGaleria");
+const galeriaModal = document.getElementById("galeriaModal");
 
+abrirGaleria.addEventListener("click", function(){
+    galeriaModal.classList.add("activo");
+});
+
+cerrarGaleria.addEventListener("click", function(){
+    galeriaModal.classList.remove("activo");
+});
 </script>
 
 
