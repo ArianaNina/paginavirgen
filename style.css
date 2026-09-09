@@ -4,7 +4,9 @@
    DISEÑO PRINCIPAL
 ========================================================= */
 /* RESET */
-
+html{
+    scroll-behavior:smooth;
+}
 *{
     margin:0;
     padding:0;
@@ -1243,6 +1245,8 @@ section{
         );
 
     filter:blur(20px);
+    z-index:0;
+pointer-events:none;
 }
 
 
@@ -2030,4 +2034,8 @@ footer small{
         font-size:50px;
     }
 
+}
+.cta > *{
+    position:relative;
+    z-index:2;
 }
