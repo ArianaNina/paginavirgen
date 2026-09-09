@@ -720,40 +720,27 @@ model-viewer{
 /* =====================================================
    BOTÓN GALERÍA
 ===================================================== */
-
 .galeria-link{
-    position:absolute;
+    color:#000 !important;
+    background:rgba(255,255,255,0.65);
+    border:1px solid rgba(255,255,255,0.50);
 
-    right:4%;
+    cursor:pointer;
+    font-size:13px;
+    font-weight:500;
 
-    top:115px;
-
-    z-index:40;
-
-    color:white;
-
-    text-decoration:none;
-
-    font-size:11px;
-
-    letter-spacing:2px;
-
-    padding:9px 14px;
-
-    border-radius:20px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.35);
-
-    background:
-        rgba(0,0,0,0.20);
-
-    backdrop-filter:blur(8px);
+    padding:11px 20px;
+    border-radius:30px;
 
     transition:0.3s;
+    letter-spacing:2px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
+.galeria-link:hover{
+    background:rgba(255,255,255,0.85);
+    transform:scale(1.03);
+}
 .galeria-link:hover{
     background:
         rgba(255,255,255,0.15);
@@ -1117,7 +1104,50 @@ model-viewer{
         padding:12px 18px;
     }
 }
+.galeria-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:6000;
+    background:rgba(0,0,0,.90);
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+}
 
+.galeria-modal.activo{
+    display:flex;
+}
+
+.galeria-modal h2{
+    color:white;
+    margin-bottom:25px;
+    font-family:Georgia,serif;
+    letter-spacing:3px;
+}
+
+.galeria-imagenes{
+    display:flex;
+    gap:25px;
+}
+
+.galeria-imagenes img{
+    width:380px;
+    height:250px;
+    object-fit:cover;
+    border-radius:15px;
+}
+
+.cerrar-galeria{
+    position:absolute;
+    top:25px;
+    right:35px;
+    background:none;
+    border:none;
+    color:white;
+    font-size:40px;
+    cursor:pointer;
+}
 </style>
 </head>
 
@@ -1154,10 +1184,26 @@ model-viewer{
         <a href="https://ariananina.github.io/paginavirgen/">
             INICIO
         </a>
-    <a href="./galeria.html">
-        GALERÍA
-        </a>
+    <button
+    class="galeria-link"
+    id="abrirGaleria">
+    GALERÍA
+</button>
+<div class="galeria-modal" id="galeriaModal">
 
+    <button class="cerrar-galeria" id="cerrarGaleria">×</button>
+
+    <h2>GALERÍA · EL SAPO</h2>
+
+    <div class="galeria-imagenes">
+
+        <img src="sa1.jpg" alt="El Sapo 1">
+
+        <img src="sa2.jpg" alt="El Sapo 2">
+
+    </div>
+
+</div>
 
 
     <!-- BOTÓN MÓVIL -->
@@ -1499,6 +1545,17 @@ document
         });
 
     });
+    const abrirGaleria = document.getElementById("abrirGaleria");
+const cerrarGaleria = document.getElementById("cerrarGaleria");
+const galeriaModal = document.getElementById("galeriaModal");
+
+abrirGaleria.addEventListener("click", function(){
+    galeriaModal.classList.add("activo");
+});
+
+cerrarGaleria.addEventListener("click", function(){
+    galeriaModal.classList.remove("activo");
+});
 </script>
 
 </body>
