@@ -278,7 +278,21 @@ header nav a:hover::after{
 
     margin-bottom:22px;
 }
+.eyebrow .fe{
+    color:#e53935;
+}
 
+.eyebrow .punto{
+    color:white;
+}
+
+.eyebrow .texto-cultura{
+    color:#f4d03f;
+}
+
+.eyebrow .texto-tradicion{
+    color:#2ecc71;
+}
 
 /* TITULO */
 
@@ -515,25 +529,17 @@ section{
 
 .section-title{
     max-width:720px;
-
     margin:0 auto 60px;
-
     text-align:center;
 }
-
 .section-title span{
     display:block;
-
     margin-bottom:12px;
-
-    color:#d7a936;
-
+    color:#c084fc;
     font-size:11px;
     font-weight:600;
-
     letter-spacing:4px;
 }
-
 .section-title h2{
     color:white;
 
@@ -709,24 +715,16 @@ section{
 
 .card-content p{
     max-width:250px;
-
     color:rgba(255,255,255,.58);
-
     font-size:12px;
-
     line-height:1.7;
 }
-
 .card-content a{
     display:inline-block;
-
     margin-top:15px;
-
-    color:#d7a936;
-
-    font-size:12px;
+    color:#c084fc;
+    font-size:14px;
     font-weight:600;
-
     transition:.3s;
 }
 
@@ -773,116 +771,74 @@ section{
 
 .significado-grid{
     max-width:1050px;
-
     margin:auto;
-
     display:grid;
-
     grid-template-columns:
         repeat(4,1fr);
-
     gap:20px;
 }
-
-
 .significado-item{
     text-align:center;
-
     padding:30px 15px;
-
     border-right:1px solid rgba(255,255,255,.08);
 }
-
 .significado-item:last-child{
     border-right:0;
 }
-
-
 .icon{
     width:72px;
     height:72px;
-
     margin:0 auto 20px;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     border:1px solid rgba(215,169,54,.5);
-
     border-radius:50%;
-
     color:#d7a936;
-
     font-size:25px;
-
     background:rgba(215,169,54,.04);
 }
 
 
 .significado-item h3{
     color:white;
-
     font-size:17px;
-
     margin-bottom:7px;
 }
 
-
 .significado-item p{
     color:rgba(255,255,255,.48);
-
     font-size:11px;
 }
-
-
-/* =========================================================
+/* ========================================================
    CULTURA
 ========================================================= */
-
 .cultura{
     padding:110px 5.5%;
-
     background:
         rgba(4,5,15,.95);
 }
-
-
 .cultura-grid{
     max-width:1300px;
-
     margin:auto;
-
     display:grid;
-
     grid-template-columns:
         repeat(3,1fr);
-
     gap:18px;
 }
 
 
 .cultura-card{
     min-height:390px;
-
     position:relative;
-
     display:flex;
-
     align-items:flex-end;
-
     overflow:hidden;
-
     border-radius:12px;
-
     border:1px solid rgba(255,255,255,.12);
-
     background-color:#111;
-
     background-size:cover;
     background-position:center;
-
     transition:.4s;
 }
 
@@ -958,82 +914,54 @@ section{
 
 .cultura-card p{
     max-width:330px;
-
     margin-top:10px;
-
     color:rgba(255,255,255,.7);
-
     font-size:12px;
-
     line-height:1.7;
 }
-
-
 .cultura-card a{
     display:inline-block;
-
     margin-top:18px;
-
     color:white;
-
     font-size:11px;
     font-weight:600;
-
     border-bottom:1px solid #d7a936;
-
     padding-bottom:4px;
 }
-
 
 /* =========================================================
    HISTORIA
 ========================================================= */
-
 .historia{
     max-width:1300px;
-
     margin:auto;
-
     padding:120px 7%;
-
     display:grid;
-
     grid-template-columns:
         1fr 1fr;
-
     gap:100px;
-
     align-items:center;
 }
 
 
 .historia-text > span{
     color:#d7a936;
-
     font-size:11px;
-
     font-weight:600;
-
     letter-spacing:3px;
 }
 
-
 .historia-text h2{
     margin-top:15px;
-
     color:white;
-
     font-size:48px;
-
     line-height:1.05;
 }
 
 
 .historia-text h2 strong{
     display:block;
-
     color:#d7a936;
-
     font-weight:800;
 }
 
@@ -1043,7 +971,7 @@ section{
 
     margin:25px 0 30px;
 
-    color:rgba(255,255,255,.58);
+    color:#ffffff;
 
     font-size:13px;
 
@@ -1100,32 +1028,22 @@ section{
 
     width:13px;
     height:13px;
-
     border-radius:50%;
-
     background:#d7a936;
-
     border:4px solid #0a0a13;
-
     box-shadow:
         0 0 0 1px #d7a936;
 }
 
-
 .timeline strong{
     color:#d7a936;
-
-    font-size:15px;
+    font-size:18px;
 }
-
 
 .timeline p{
     margin-top:7px;
-
-    color:rgba(255,255,255,.65);
-
-    font-size:12px;
-
+    color:#ffffff;
+    font-size:13px;
     line-height:1.6;
 }
 
@@ -1133,10 +1051,8 @@ section{
 /* =========================================================
    GALERÍA
 ========================================================= */
-
 .galeria{
     padding:110px 5.5%;
-
     background:
         rgba(3,4,13,.96);
 }
