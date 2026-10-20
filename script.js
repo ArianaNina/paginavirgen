@@ -1,400 +1,283 @@
-/*IMPORTAR THREE.JS */
+
 import * as THREE from "three";
-import {
-    OrbitControls
-} from "three/addons/controls/OrbitControls.js";
-import {
-    GLTFLoader
-} from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
 
-/* CONTENEDOR DEL MODELO */
-const contenedor =
-    document.getElementById("contenedor3d");
+// CONTENEDOR
+const contenedor = document.getElementById("contenedor3d");
 
-/* ESCENA */
+if (!contenedor) {
+    throw new Error("No se encontro el contenedor3d.");
+}
+
+// ESCENA TRANSPARENTE
 const scene = new THREE.Scene();
 scene.background = null;
 
-/* CÁMARA */
-const camera =
-    new THREE.PerspectiveCamera(
-        45,
-        contenedor.clientWidth /
-        contenedor.clientHeight,
-        0.1,
-        1000
-    );
-
-camera.position.set(
-    0,
-    2.5,
-    7
+// CAMARA
+const camera = new THREE.PerspectiveCamera(
+    45,
+    contenedor.clientWidth / contenedor.clientHeight,
+    0.1,
+    1000
 );
 
-/* RENDERIZADOR */
-const renderer =
-    new THREE.WebGLRenderer({
-        antialias:true,
-        alpha:true
+camera.position.set(0, 2.5, 7);
 
-    });
+// RENDERIZADOR
+const renderer = new THREE.WebGLRenderer({
+    antialias: true,
+    alpha: true
+});
 
-renderer.setPixelRatio(
-    Math.min(
-        window.devicePixelRatio,
-        2
-    )
-);
-renderer.setSize(
-    contenedor.clientWidth,
-    contenedor.clientHeight
-);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(contenedor.clientWidth, contenedor.clientHeight);
+renderer.setClearColor(0x000000, 0);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+
+// Evitar que el modelo se sobreexponga
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1;
 
 renderer.shadowMap.enabled = true;
-/* Agregar el canvas */
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-contenedor.appendChild(
-    renderer.domElement
-);
-/* -------------------CONTROLES*/
-const controls =
-    new OrbitControls(
-        camera,
-        renderer.domElement
-    );
+renderer.domElement.style.background = "transparent";
+contenedor.appendChild(renderer.domElement);
 
+// CONTROLES
+const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
+controls.dampingFactor = 0.05;
 controls.enableRotate = true;
 controls.enableZoom = true;
 controls.enablePan = false;
-controls.target.set(
-    0,
-    1.8,
-    0
-);
-controls.update()
-/* ===================LUZ */
+controls.target.set(0, 1.8, 0);
+controls.update();
 
-const ambient =
-    new THREE.AmbientLight(
-        0xffffff,
-        4
-    );
+// ILUMINACION EQUILIBRADA
+const luzAmbiente = new THREE.AmbientLight(0xffffff, 2.5);
+scene.add(luzAmbiente);
 
-scene.add(ambient);
+// Luz frontal principal
+const luzPrincipal = new THREE.DirectionalLight(0xffffff, 5.5);
+luzPrincipal.position.set(3, 8, 10);
+luzPrincipal.castShadow = true;
+scene.add(luzPrincipal);
 
+// Luz frontal suave para iluminar el rostro
+const luzFrontal = new THREE.PointLight(0xffffff, 50, 25);
+luzFrontal.position.set(0, 4, 7);
+scene.add(luzFrontal);
 
-const dirLight =
-    new THREE.DirectionalLight(
-        0xffffff,
-        5
-    );
+// Luz violeta lateral
+const luzVioleta = new THREE.PointLight(0x9d7cff, 12, 25);
+luzVioleta.position.set(-5, 4, 2);
+scene.add(luzVioleta);
 
+// Luz azul de contorno
+const luzAzul = new THREE.PointLight(0x66ccff, 8, 25);
+luzAzul.position.set(5, 4, -3);
+scene.add(luzAzul);
 
-dirLight.position.set(
-    5,
-    10,
-    7
-);
+// COMPOSITOR DE POSTPROCESAMIENTO
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
 
-
-dirLight.castShadow = true;
-
-scene.add(dirLight);
-
-
-const light2 =
-    new THREE.PointLight(
-        0x9d7cff,
-        20
-    );
-
-
-light2.position.set(
-    -5,
-    3,
-    5
+// EFECTO 1: BLOOM SUAVE
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(
+        contenedor.clientWidth,
+        contenedor.clientHeight
+    ),
+    0.12,  // Intensidad
+    0.2,   // Radio
+    0.95   // Umbral alto para proteger los detalles
 );
 
-scene.add(light2);
+composer.addPass(bloomPass);
 
+// EFECTO 2: ABERRACION CROMATICA SUAVE
+const cinematicShader = {
+    uniforms: {
+        tDiffuse: { value: null },
+        aberration: { value: 0.00045 }
+    },
 
-const light3 =
-    new THREE.PointLight(
-        0xffffff,
-        15
-    );
+    vertexShader: `
+        varying vec2 vUv;
 
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix *
+                modelViewMatrix * vec4(position, 1.0);
+        }
+    `,
 
-light3.position.set(
-    5,
-    4,
-    -5
-);
-scene.add(light3);
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform float aberration;
+        varying vec2 vUv;
 
-/* ========= CARGAR MODELO 3D */
+        void main() {
+            vec2 centro = vUv - vec2(0.5);
+            float distancia = length(centro);
 
-const loader =
-    new GLTFLoader();
+            vec2 desplazamiento =
+                centro * aberration * (1.0 + distancia);
+
+            vec4 original = texture2D(tDiffuse, vUv);
+
+            float rojo = texture2D(
+                tDiffuse, vUv + desplazamiento
+            ).r;
+
+            float verde = original.g;
+
+            float azul = texture2D(
+                tDiffuse, vUv - desplazamiento
+            ).b;
+
+            vec3 color = vec3(rojo, verde, azul);
+
+            // Mantener la transparencia original
+            gl_FragColor = vec4(color, original.a);
+        }
+    `
+};
+
+const cinematicPass = new ShaderPass(cinematicShader);
+composer.addPass(cinematicPass);
+
+// PASO FINAL: RESTAURAR TRANSPARENCIA
+// El fondo negro generado por el compositor se hace transparente.
+const transparenciaShader = {
+    uniforms: {
+        tDiffuse: { value: null }
+    },
+
+    vertexShader: `
+        varying vec2 vUv;
+
+        void main() {
+            vUv = uv;
+            gl_Position = projectionMatrix *
+                modelViewMatrix * vec4(position, 1.0);
+        }
+    `,
+
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        varying vec2 vUv;
+
+        void main() {
+            vec4 color = texture2D(tDiffuse, vUv);
+
+            // Los pixeles negros del fondo se vuelven transparentes.
+            float luminosidad = max(
+                color.r,
+                max(color.g, color.b)
+            );
+
+            float alpha = smoothstep(
+                0.015, 0.10, luminosidad
+            );
+
+            gl_FragColor = vec4(color.rgb, alpha);
+        }
+    `
+};
+
+const transparenciaPass = new ShaderPass(transparenciaShader);
+composer.addPass(transparenciaPass);
+
+// CARGAR MODELO 3D
+const loader = new GLTFLoader();
 let modelo = null;
 
 loader.load(
     "virgen.glb",
-    function(gltf){
-        modelo =
-            gltf.scene;
-        /* Tamaño */
-        modelo.scale.set(
-            5.2,5.2,5.2);
 
-        /* Posición */
-        modelo.position.set(
-            0,
-            2.1,
-            0
-        );
+    function (gltf) {
+        modelo = gltf.scene;
 
+        modelo.scale.set(5.2, 5.2, 5.2);
+        modelo.position.set(0, 2.1, 0);
+        modelo.rotation.y = -Math.PI / 2;
 
-        /* Rotación inicial */
+        modelo.traverse(function (obj) {
+            if (!obj.isMesh) return;
 
-        modelo.rotation.y =
-            -Math.PI / 2;
+            obj.castShadow = true;
+            obj.receiveShadow = true;
 
+            // Ajustes conservadores para conservar el material original
+            const materiales = Array.isArray(obj.material)
+                ? obj.material
+                : [obj.material];
 
-        /* Sombras */
+            materiales.forEach(function (material) {
+                if (material && material.isMeshStandardMaterial) {
+                    material.roughness = Math.max(
+                        material.roughness,
+                        0.4
+                    );
 
-        modelo.traverse(
-            function(obj){
-
-                if(obj.isMesh){
-
-                    obj.castShadow = true;
-
-                    obj.receiveShadow = true;
-
+                    material.needsUpdate = true;
                 }
-
-            }
-        );
-
-
-        /* Agregar a la escena */
+            });
+        });
 
         scene.add(modelo);
-
-
-        console.log(
-            "Virgen cargada"
-        );
-
+        console.log("virgen.glb cargado correctamente.");
     },
 
-
-    /* PROGRESO */
-
-    function(xhr){
-
-        if(xhr.total){
-
+    function (xhr) {
+        if (xhr.total) {
             console.log(
-                "Modelo: " +
-                Math.round(
-                    xhr.loaded /
-                    xhr.total *
-                    100
-                ) +
+                "Carga: " +
+                Math.round(xhr.loaded / xhr.total * 100) +
                 "%"
             );
-
         }
-
     },
 
-
-    /* ERROR */
-
-    function(error){
-
-        console.error(
-            "Error cargando frentevirgen.glb:",
-            error
-        );
-
+    function (error) {
+        console.error("Error al cargar virgen.glb:", error);
     }
-
 );
 
-/* =========================================
-   ANIMACIÓN
-========================================= */
-function animate(){
-    requestAnimationFrame(
-        animate
-    );
-    if(modelo){
-        modelo.rotation.y += 0.003;
+// ANIMACION
+function animate() {
+    requestAnimationFrame(animate);
 
+    if (modelo) {
+        modelo.rotation.y += 0.002;
     }
 
-
     controls.update();
-
-
-    renderer.render(
-        scene,
-        camera
-    );
-
+    composer.render();
 }
 
 animate();
 
+// REDIMENSIONAR
+function redimensionar() {
+    const ancho = contenedor.clientWidth;
+    const alto = contenedor.clientHeight;
 
+    if (!ancho || !alto) return;
 
-/* =========================================
-   REDIMENSIONAR
-========================================= */
+    camera.aspect = ancho / alto;
+    camera.updateProjectionMatrix();
 
-window.addEventListener(
-    "resize",
-    function(){
+    renderer.setSize(ancho, alto);
+    composer.setSize(ancho, alto);
+    bloomPass.setSize(ancho, alto);
+}
 
-        const ancho =
-            contenedor.clientWidth;
-
-        const alto =
-            contenedor.clientHeight;
-
-
-        camera.aspect =
-            ancho / alto;
-
-
-        camera.updateProjectionMatrix();
-
-
-        renderer.setSize(
-            ancho,
-            alto
-        );
-
-    }
-);
-
-
-
-/* =========================================
-   VENTANA DE UBICACIÓN
-========================================= */
-
-const btnUbicacion =
-    document.getElementById(
-        "btnUbicacion"
-    );
-
-
-const ventanaUbicacion =
-    document.getElementById(
-        "ventanaUbicacion"
-    );
-
-
-const cerrarUbicacion =
-    document.getElementById(
-        "cerrarUbicacion"
-    );
-
-
-
-/* Abrir ubicación */
-
-btnUbicacion.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-
-        ventanaUbicacion.classList.add(
-            "mostrar"
-        );
-
-
-        ventanaContacto.classList.remove(
-            "mostrar"
-        );
-
-    }
-);
-
-
-
-/* Cerrar ubicación */
-cerrarUbicacion.addEventListener(
-    "click",
-    function(){
-        ventanaUbicacion.classList.remove(
-            "mostrar"
-        );
-
-    }
-);
-
-
-/* =========================================
-   VENTANA DE CONTACTO
-========================================= */
-const btnContacto =
-    document.getElementById(
-        "btnContacto"
-    );
-
-
-const ventanaContacto =
-    document.getElementById(
-        "ventanaContacto"
-    );
-
-const cerrarContacto =
-    document.getElementById(
-        "cerrarContacto"
-    );
-
-
-
-/* Abrir contacto */
-
-btnContacto.addEventListener(
-    "click",
-    function(event){
-
-        event.preventDefault();
-
-
-        ventanaContacto.classList.add(
-            "mostrar"
-        );
-
-
-        ventanaUbicacion.classList.remove(
-            "mostrar"
-        );
-
-    }
-);
-
-
-
-/* Cerrar contacto */
-
-cerrarContacto.addEventListener(
-    "click",
-    function(){
-
-        ventanaContacto.classList.remove(
-            "mostrar"
-        );
-
-    }
-);
+window.addEventListener("resize", redimensionar);
