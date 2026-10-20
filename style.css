@@ -39,15 +39,12 @@ img{
     max-width:100%;
     display:block;
 }
-
 a{
     text-decoration:none;
 }
-
 button{
     font-family:inherit;
 }
-
 
 /* =========================================================
    NAVBAR
@@ -56,40 +53,28 @@ button{
 .navbar,
 header{
     position:absolute;
-
     top:0;
     left:0;
-
     width:100%;
     height:80px;
-
     padding:0 5.5%;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
     z-index:1000;
-
     background:linear-gradient(
         180deg,
         rgba(3,5,15,.75),
         rgba(3,5,15,0)
     );
 }
-
-
 /* LOGO */
-
 .logo{
     display:flex;
     align-items:center;
-
     font-size:19px;
     font-weight:800;
-
     letter-spacing:1px;
-
     white-space:nowrap;
 }
 
@@ -99,7 +84,7 @@ header{
 
 .logo b{
     margin-left:4px;
-    color:#e7b83c;
+    color:#bc87fd;
 }
 
 
@@ -108,31 +93,23 @@ header{
 .logo .oruro{
     color:white;
 }
-
 .logo .bo{
     color:#e53935;
 }
-
 .logo .li{
     color:#f4d03f;
 }
-
 .logo .via{
     color:#2ecc71;
 }
 
-
 /* NAV */
-
 .navbar nav,
 header nav{
     display:flex;
-
     align-items:center;
-
     gap:30px;
 }
-
 .navbar nav a,
 header nav a{
     color:rgba(255,255,255,.86);
@@ -223,11 +200,8 @@ header nav a:hover::after{
 
     display:flex;
     align-items:center;
-
     overflow:hidden;
-
     padding:80px 5.5% 30px;
-
     isolation:isolate;
 }
 
@@ -237,14 +211,10 @@ header nav a:hover::after{
    Solo agregamos una capa muy suave para mejorar
    la lectura del texto.
 */
-
 .hero-overlay{
     position:absolute;
-
     inset:0;
-
     z-index:-1;
-
     background:
         linear-gradient(
             90deg,
@@ -256,32 +226,24 @@ header nav a:hover::after{
 
 
 /* TEXTO HERO */
-
 .hero-text{
     position:relative;
-
-    width:47%;
+    width:49%;
     max-width:650px;
-
     z-index:10;
-
     padding-left:10px;
 }
 
 .eyebrow{
     display:inline-block;
-
-    color:#d7a936;
-
+    color:#f3f718;
     font-size:13px;
     font-weight:600;
-
     letter-spacing:4px;
-
     margin-bottom:22px;
 }
 .eyebrow .fe{
-    color:#e53935;
+    color:#fd2420;
 }
 
 .eyebrow .punto{
@@ -289,40 +251,31 @@ header nav a:hover::after{
 }
 
 .eyebrow .texto-cultura{
-    color:#f4d03f;
+    color:#ebee0f;
 }
 
 .eyebrow .texto-tradicion{
-    color:#2ecc71;
+    color:#23ee74;
 }
 
 /* TITULO */
 
 .hero h1{
     margin:0;
-
     color:white;
-
     font-size:52px;
     font-weight:700;
-
     line-height:.95;
-
     letter-spacing:-2px;
 }
 
 .hero h1 strong{
     display:block;
-
     margin-top:3px;
-
     font-size:100px;
     font-weight:900;
-
     line-height:.88;
-
     letter-spacing:-6px;
-
     background:linear-gradient(
         180deg,
         #ffffff 20%,
@@ -340,10 +293,8 @@ header nav a:hover::after{
 
 .hero-text > p{
     max-width:540px;
-
     margin-top:30px;
     margin-bottom:30px;
-
     color:rgba(255,255,255,.76);
 
     font-size:14px;
@@ -351,14 +302,11 @@ header nav a:hover::after{
     line-height:1.8;
 }
 
-
 /* BOTONES */
 
 .hero-buttons{
     display:flex;
-
     align-items:center;
-
     gap:14px;
 }
 
@@ -887,11 +835,10 @@ section{
     border-color:rgba(215,169,54,.5);
 }
 
-
 .cultura-card > div{
     width:100%;
-
     padding:30px;
+    transform:translateY(15px);
 }
 
 
@@ -903,21 +850,20 @@ section{
     letter-spacing:2px;
 }
 
-
 .cultura-card h3{
-    margin-top:7px;
-
+    margin-top:9px;
+    transform:translateY(-230px);
     color:white;
-
     font-size:32px;
     font-weight:800;
+    text-align:center;
+    width:100%;
 }
-
 
 .cultura-card p{
     max-width:330px;
     margin-top:10px;
-    color:rgba(255,255,255,.7);
+    color:rgba(255, 255, 255, 0.844);
     font-size:12px;
     line-height:1.7;
 }
@@ -2242,4 +2188,96 @@ header nav a{
     width:170px !important;
     height:62px !important;
     font-size:14px !important;
+}
+
+/* ==========================================
+   PRACTICA 1: EFECTOS VISUALES
+========================================== */
+
+.hero-model {
+    isolation: isolate;
+    overflow: hidden;
+}
+
+.hero-model .glow {
+    background: radial-gradient(
+        circle,
+        rgba(157, 124, 255, 0.42) 0%,
+        rgba(77, 148, 255, 0.20) 38%,
+        transparent 72%
+    );
+    filter: blur(22px);
+    animation: brilloVirgen 4s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+#contenedor3d {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+#contenedor3d canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    outline: none;
+}
+
+@keyframes brilloVirgen {
+    from {
+        opacity: 0.55;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+}
+
+/* Respeta la preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+    .hero-model .glow {
+        animation: none;
+    }
+}
+
+/* CORRECCION DEL FONDO DEL MODELO 3D */
+
+#contenedor3d {
+    position: relative;
+    background: transparent !important;
+    overflow: hidden;
+}
+
+#contenedor3d canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: transparent !important;
+    outline: none;
+}
+
+/* EVITAR QUE EL MODELO TAPE EL TEXTO */
+#contenedor3d {
+    isolation: isolate;
+}
+
+.texto-final-galeria {
+    width: 100%;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #c9c5df;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    position: relative;
+    left: 0;
+    display: block;
 }
