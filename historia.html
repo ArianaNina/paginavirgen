@@ -1,141 +1,770 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Historia de la Virgen del Socavón</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{width:100%;height:100vh;overflow:hidden;background:#050505;font-family:Georgia,"Times New Roman",serif;color:#3b210e}
-.contenedor{width:100%;height:100vh;display:flex;align-items:center;justify-content:center;gap:3%;padding:3vh 5vw;position:relative}
-.contenedor:before{content:"";position:absolute;width:650px;height:650px;left:5%;top:50%;transform:translateY(-50%);background:radial-gradient(circle,rgba(35,65,130,.28),transparent 68%);pointer-events:none}
-.modelo{width:48%;height:92%;position:relative;display:flex;align-items:center;justify-content:center}
-#escena{width:100%;height:100%}
-.modelo:after{content:"";position:absolute;width:65%;height:20px;bottom:8%;left:18%;background:radial-gradient(ellipse,rgba(50,90,180,.5),transparent 70%);filter:blur(10px);pointer-events:none}
-.pergamino{width:44%;height:82%;position:relative;padding:65px 70px;overflow:auto;background:linear-gradient(90deg,#8d5c27 0%,#d8ad65 5%,#f4d895 18%,#f8e2a7 50%,#e8c77f 82%,#9b672c 100%);border:3px solid #6f421b;box-shadow:0 0 0 8px rgba(73,39,13,.35),0 25px 60px rgba(0,0,0,.8),inset 0 0 45px rgba(92,49,12,.55),inset 0 0 10px rgba(255,245,190,.7);transform:rotate(-1deg);z-index:2}
-.pergamino:before{display:none}
-.pergamino:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.2),transparent 20%),radial-gradient(circle at 80% 75%,rgba(100,55,15,.12),transparent 25%);pointer-events:none}
-.rollo{position:absolute;width:calc(100% + 35px);height:42px;left:-18px;background:linear-gradient(#8b5723,#d5a75d,#8a5421);border:3px solid #623914;border-radius:50%;box-shadow:0 6px 12px rgba(0,0,0,.55);z-index:5}
-.rollo.arriba{top:-20px}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --oro:#e8c27b;
+    --oro-claro:#fff0b8;
+    --marron:#633816;
+}
+
+body{
+    width:100%;
+    min-height:100vh;
+    overflow:hidden;
+    background:#030305;
+    font-family:Georgia,"Times New Roman",serif;
+    color:#4a2912;
+}
+
+.contenedor{
+    width:100%;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:3%;
+    padding:4vh 5vw;
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    background:
+        radial-gradient(ellipse at 25% 50%,rgba(34,62,150,.16),transparent 38%),
+        radial-gradient(ellipse at 78% 50%,rgba(153,93,30,.09),transparent 40%),
+        #030305;
+}
+
+/* LUCES DE FONDO */
+.luz-fondo{
+    position:absolute;
+    width:420px;
+    height:420px;
+    border-radius:50%;
+    filter:blur(100px);
+    opacity:.23;
+    pointer-events:none;
+    z-index:-1;
+    animation:respirar 6s ease-in-out infinite alternate;
+}
+
+.luz-azul{
+    background:#234bff;
+    left:4%;
+    top:20%;
+}
+
+.luz-dorada{
+    background:#d88b2e;
+    right:5%;
+    bottom:8%;
+    animation-delay:2s;
+}
+
+@keyframes respirar{
+    from{transform:scale(.8);opacity:.12}
+    to{transform:scale(1.2);opacity:.3}
+}
+
+/* BOTÓN INICIO: DISEÑO AZUL TRANSPARENTE */
+.boton-inicio{
+    position:fixed;
+    top:20px;
+    left:32px;
+    z-index:30;
+
+    min-width:125px;
+    height:55px;
+    padding:0 24px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-decoration:none;
+    color:#fff;
+
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:17px;
+    font-weight:700;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+
+    background:rgba(125,165,190,.34);
+    border:1px solid rgba(255,255,255,.04);
+    border-radius:50px;
+
+    box-shadow:
+        inset 0 1px 1px rgba(255,255,255,.08),
+        0 5px 18px rgba(0,0,0,.08);
+
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.boton-inicio:hover{
+    background:rgba(145,185,210,.52);
+    transform:translateY(-2px);
+    box-shadow:
+        0 7px 22px rgba(70,140,190,.2),
+        inset 0 1px 2px rgba(255,255,255,.15);
+}
+
+.boton-inicio:active{
+    transform:scale(.96);
+}
+
+/* ZONA DEL MODELO 3D */
+.modelo{
+    width:48%;
+    height:92%;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:entradaVirgen 1.5s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes entradaVirgen{
+    from{
+        opacity:0;
+        transform:translateX(-80px) scale(.88);
+        filter:blur(8px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) scale(1);
+        filter:blur(0);
+    }
+}
+
+#escena{
+    width:100%;
+    height:100%;
+    position:relative;
+    z-index:2;
+}
+
+#escena canvas{
+    display:block;
+    width:100%;
+    height:100%;
+    outline:none;
+    cursor:grab;
+}
+
+#escena canvas:active{
+    cursor:grabbing;
+}
+
+/* AURA AZUL */
+.modelo::before{
+    content:"";
+    position:absolute;
+    width:65%;
+    height:65%;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(76,105,255,.23),
+        rgba(52,72,185,.10) 42%,
+        transparent 72%
+    );
+    filter:blur(25px);
+    animation:aura 4s ease-in-out infinite alternate;
+    pointer-events:none;
+}
+
+@keyframes aura{
+    from{transform:scale(.9);opacity:.6}
+    to{transform:scale(1.12);opacity:1}
+}
+
+.modelo::after{
+    content:"";
+    position:absolute;
+    width:64%;
+    height:24px;
+    bottom:6%;
+    left:18%;
+    border-radius:50%;
+    background:radial-gradient(
+        ellipse,
+        rgba(75,104,255,.65),
+        rgba(39,54,155,.22) 45%,
+        transparent 75%
+    );
+    filter:blur(12px);
+    pointer-events:none;
+}
+
+/* PARTÍCULAS */
+.particulas{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:1;
+}
+
+.particula{
+    position:absolute;
+    width:3px;
+    height:3px;
+    border-radius:50%;
+    background:#e6d5ff;
+    box-shadow:0 0 9px 2px rgba(128,155,255,.8);
+    opacity:0;
+    animation:subir 7s linear infinite;
+}
+
+.particula:nth-child(1){left:8%;bottom:0;animation-delay:0s}
+.particula:nth-child(2){left:18%;bottom:-10%;animation-delay:2s}
+.particula:nth-child(3){left:36%;bottom:0;animation-delay:4s}
+.particula:nth-child(4){left:51%;bottom:-10%;animation-delay:1s}
+.particula:nth-child(5){left:69%;bottom:0;animation-delay:3s}
+.particula:nth-child(6){left:85%;bottom:-10%;animation-delay:5s}
+.particula:nth-child(7){left:94%;bottom:0;animation-delay:2.5s}
+.particula:nth-child(8){left:43%;bottom:-10%;animation-delay:5.5s}
+
+@keyframes subir{
+    0%{transform:translateY(0) scale(.5);opacity:0}
+    15%{opacity:.9}
+    80%{opacity:.65}
+    100%{transform:translateY(-100vh) scale(1.5);opacity:0}
+}
+
+/* PERGAMINO */
+.pergamino{
+    width:44%;
+    height:82%;
+    position:relative;
+    padding:60px 65px;
+    overflow:auto;
+    scrollbar-width:thin;
+    scrollbar-color:#98652e rgba(90,50,15,.12);
+
+    background:
+        radial-gradient(ellipse at 50% 35%,rgba(255,249,204,.65),transparent 55%),
+        linear-gradient(
+            90deg,
+            #875222 0%,
+            #c08a43 3%,
+            #f1d28f 13%,
+            #f8e4ad 48%,
+            #edce8b 86%,
+            #98602b 100%
+        );
+
+    border:3px solid #70441f;
+
+    box-shadow:
+        0 0 0 8px rgba(73,39,13,.35),
+        0 25px 60px rgba(0,0,0,.8),
+        0 0 35px rgba(211,157,76,.13),
+        inset 0 0 45px rgba(92,49,12,.48),
+        inset 0 0 12px rgba(255,245,190,.75);
+
+    transform:rotate(-1deg);
+    z-index:3;
+
+    animation:entradaPergamino 1.5s .15s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes entradaPergamino{
+    from{
+        opacity:0;
+        transform:translateX(80px) rotate(3deg) scale(.94);
+        filter:blur(5px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0) rotate(-1deg) scale(1);
+        filter:blur(0);
+    }
+}
+
+/* TEXTURA */
+.pergamino::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    background:
+        radial-gradient(circle at 15% 18%,rgba(255,255,255,.2),transparent 22%),
+        radial-gradient(circle at 88% 80%,rgba(112,63,17,.13),transparent 25%),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            rgba(119,76,30,.025) 2px,
+            transparent 4px
+        );
+    z-index:0;
+}
+
+.pergamino::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:55%;
+    height:100%;
+    pointer-events:none;
+    background:linear-gradient(
+        100deg,
+        transparent,
+        rgba(255,255,221,.2),
+        transparent
+    );
+    animation:brilloPapel 8s 2s ease-in-out infinite;
+    z-index:1;
+}
+
+@keyframes brilloPapel{
+    0%,35%{left:-100%}
+    65%,100%{left:150%}
+}
+
+/* MARCO */
+.marco-interno{
+    position:absolute;
+    inset:8px;
+    border:1px solid rgba(112,66,28,.45);
+    pointer-events:none;
+    z-index:2;
+}
+
+.rollo{
+    position:absolute;
+    width:calc(100% + 28px);
+    height:38px;
+    left:-14px;
+    background:linear-gradient(
+        180deg,
+        #8b5723,
+        #e5bd78 32%,
+        #b78040 70%,
+        #74431b
+    );
+    border:3px solid #623914;
+    border-radius:50%;
+    box-shadow:0 6px 12px rgba(0,0,0,.4);
+    z-index:5;
+}
+
+.rollo.arriba{top:-19px}
 .rollo.abajo{display:none}
-.titulo{text-align:center;font-size:clamp(21px,2.2vw,32px);font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#5a3215;text-shadow:1px 1px 0 #f8dda0,0 2px 4px rgba(70,35,10,.25);margin-bottom:18px;position:relative;z-index:3;line-height:1.2}
-.linea{width:70%;height:2px;background:linear-gradient(90deg,transparent,#81501f,transparent);margin:0 auto 28px}
-.texto{font-size:clamp(16px,1.35vw,21px);line-height:1.8;text-align:justify;position:relative;z-index:3}
-.texto p{margin-bottom:20px;text-indent:28px}
-.adorno{position:absolute;font-size:34px;color:#74461c;z-index:4}
-.a1{top:32px;left:35px}
-.a2{top:32px;right:35px}
-.a3{bottom:32px;left:35px}
-.a4{bottom:32px;right:35px}
-.capital{font-size:1.8em;font-weight:bold;float:left;line-height:.8;padding-right:5px;color:#713d13}
-.boton-inicio{position:fixed;top:24px;left:22px;z-index:20;width:120px;height:50px;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-family:Arial,sans-serif;font-size:20px;font-weight:bold;border:1.5px solid rgba(255,255,255,.9);border-radius:40px;background:rgba(255,255,255,.08);backdrop-filter:blur(5px);box-shadow:0 4px 15px rgba(0,0,0,.25);transition:.3s;cursor:pointer}
-.boton-inicio:hover{background:rgba(255,255,255,.2);transform:scale(1.05);box-shadow:0 0 20px rgba(255,255,255,.3)}
+
+/* CONTENIDO */
+.contenido{
+    position:relative;
+    z-index:4;
+}
+
+.titulo{
+    text-align:center;
+    font-size:clamp(21px,2.2vw,32px);
+    font-weight:bold;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#5a3215;
+    text-shadow:
+        1px 1px 0 #f8dda0,
+        0 2px 4px rgba(70,35,10,.25);
+    margin-bottom:22px;
+    line-height:1.2;
+    animation:aparecerTexto 1.1s .8s both;
+}
+
+.linea{
+    width:70%;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #81501f,
+        #d1a35e,
+        #81501f,
+        transparent
+    );
+    margin:0 auto 28px;
+    transform-origin:center;
+    animation:expandirLinea 1.3s 1.1s both;
+}
+
+@keyframes expandirLinea{
+    from{transform:scaleX(0);opacity:0}
+    to{transform:scaleX(1);opacity:1}
+}
+
+.texto{
+    font-size:clamp(16px,1.35vw,21px);
+    line-height:1.8;
+    text-align:justify;
+    color:#4a2912;
+    animation:aparecerTexto 1.2s 1s both;
+}
+
+@keyframes aparecerTexto{
+    from{opacity:0;transform:translateY(18px)}
+    to{opacity:1;transform:translateY(0)}
+}
+
+.texto p{
+    margin-bottom:20px;
+    text-indent:28px;
+}
+
+.capital{
+    font-size:1.8em;
+    font-weight:bold;
+    float:left;
+    line-height:.8;
+    padding-right:5px;
+    color:#713d13;
+}
+
+/* ADORNOS */
+.adorno{
+    position:absolute;
+    font-size:34px;
+    color:#74461c;
+    z-index:4;
+    text-shadow:0 0 8px rgba(255,224,151,.7);
+    animation:brillarAdorno 3s ease-in-out infinite alternate;
+}
+
+.a1{top:28px;left:30px}
+.a2{top:28px;right:30px;animation-delay:.7s}
+.a3{bottom:28px;left:30px;animation-delay:1.4s}
+.a4{bottom:28px;right:30px;animation-delay:2s}
+
+@keyframes brillarAdorno{
+    from{opacity:.65;transform:scale(.92) rotate(-5deg)}
+    to{opacity:1;transform:scale(1.1) rotate(5deg)}
+}
+
+/* SCROLLBAR */
 ::-webkit-scrollbar{width:7px}
-::-webkit-scrollbar-track{background:rgba(90,50,15,.15)}
+::-webkit-scrollbar-track{background:rgba(90,50,15,.12)}
 ::-webkit-scrollbar-thumb{background:#8b5a27;border-radius:10px}
-@media(max-width:900px){
-body{overflow:auto}
-.contenedor{height:auto;min-height:100vh;flex-direction:column;padding:20px}
-.modelo{width:100%;height:55vh}
-.pergamino{width:92%;height:auto;min-height:70vh;padding:60px 35px}
-.boton-inicio{top:15px;left:15px;width:120px;height:52px;font-size:21px}
+
+/* TABLET */
+@media(max-width:1100px){
+    .contenedor{gap:2%;padding:4vh 3vw}
+    .modelo{width:47%}
+    .pergamino{width:47%;padding:55px 40px}
+    .adorno{font-size:27px}
+}
+
+/* CELULAR */
+@media(max-width:700px){
+    body{
+        overflow:auto;
+        overflow-x:hidden;
+    }
+
+    .contenedor{
+        height:auto;
+        min-height:100vh;
+        flex-direction:column;
+        gap:12px;
+        padding:85px 14px 30px;
+        overflow:visible;
+    }
+
+    .modelo{
+        width:100%;
+        height:48vh;
+        min-height:300px;
+        flex-shrink:0;
+    }
+
+    .pergamino{
+        width:94%;
+        height:auto;
+        max-height:none;
+        min-height:500px;
+        padding:55px 28px;
+        transform:none;
+    }
+
+    .titulo{font-size:24px}
+    .texto{font-size:17px;line-height:1.75}
+    .rollo{height:30px}
+    .adorno{font-size:23px}
+    .a1{top:22px;left:20px}
+    .a2{top:22px;right:20px}
+    .a3{bottom:22px;left:20px}
+    .a4{bottom:22px;right:20px}
+
+    .boton-inicio{
+        top:15px;
+        left:18px;
+        min-width:105px;
+        height:45px;
+        padding:0 20px;
+        font-size:15px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+        animation-duration:.01ms!important;
+        animation-iteration-count:1!important;
+        scroll-behavior:auto!important;
+    }
 }
 </style>
 </head>
+
 <body>
-<button onclick="window.location.href='./index.html'" class="boton-inicio">Inicio</button>
+
+<a href="./index.html" class="boton-inicio">INICIO</a>
+
 <div class="contenedor">
-<div class="modelo">
-<div id="escena"></div>
+
+    <div class="luz-fondo luz-azul"></div>
+    <div class="luz-fondo luz-dorada"></div>
+
+    <div class="particulas">
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+        <span class="particula"></span>
+    </div>
+
+    <div class="modelo">
+        <div id="escena"></div>
+    </div>
+
+    <div class="pergamino">
+
+        <div class="rollo arriba"></div>
+        <div class="rollo abajo"></div>
+        <div class="marco-interno"></div>
+
+        <div class="adorno a1">✦</div>
+        <div class="adorno a2">✦</div>
+        <div class="adorno a3">✦</div>
+        <div class="adorno a4">✦</div>
+
+        <div class="contenido">
+
+            <h1 class="titulo">
+                Historia de la Virgen del Socavón
+            </h1>
+
+            <div class="linea"></div>
+
+            <div class="texto">
+
+                <p>
+                    <span class="capital">L</span>a Virgen del Socavón
+                    es una de las figuras religiosas y culturales más
+                    representativas de Oruro, Bolivia.
+                </p>
+
+                <p>
+                 Su historia está profundamente relacionada con la tradición minera, la fe de los habitantes y las expresiones culturales que se manifiestan durante el Carnaval de Oruro. Conocida también como la Virgen de la Candelaria, es venerada por miles de personas que acuden a su santuario para expresar su fe, realizar promesas y agradecer por los favores recibidos.
+                </p>
+
+                <p>
+                La devoción a la Virgen adquirió una relación especial con los trabajadores mineros, quienes acudían a ella para pedir protección y agradecer por los favores recibidos. Debido a la cercanía del santuario con antiguas zonas de actividad minera, este lugar se convirtió en un importante centro espiritual para la población orureña. Con el paso del tiempo, la fe en la Virgen se transmitió de generación en generación y llegó a formar parte de la identidad cultural de la región.
+                </p>
+
+                <p>
+                La historia de la Virgen del Socavón también está estrechamente vinculada con el Carnaval de Oruro, una celebración en la que se encuentran tradiciones andinas y elementos de la religión católica. Durante esta festividad, bailarines y músicos participan en una peregrinación de fe y devoción, ofreciendo sus danzas en honor a la Virgen. Entre las expresiones más representativas se encuentra la Diablada, que forma parte de la riqueza folklórica de Oruro.
+                </p>
+                <p>
+                    El Carnaval de Oruro conserva una profunda relación con las antiguas ceremonias de los pueblos originarios y con las transformaciones culturales producidas durante la época colonial. Esta combinación de creencias, símbolos, música, danza y tradición dio lugar a una manifestación cultural singular. En 2001, el Carnaval fue proclamado Obra Maestra del Patrimonio Oral e Intangible de la Humanidad y, en 2008, fue inscrito en la Lista Representativa del Patrimonio Cultural Inmaterial de la Humanidad de la UNESCO.
+                </p>
+                <p>
+                    El Santuario de la Virgen del Socavón continúa siendo un lugar de encuentro para creyentes, visitantes y bailarines que llegan desde diferentes regiones. Su historia representa la unión entre la fe religiosa, la memoria minera y las tradiciones populares que caracterizan a Oruro. Así, la Virgen del Socavón permanece como un símbolo de devoción e identidad cultural, y su legado continúa transmitiéndose a través de las generaciones.
+                </p>
+
+                    <p>
+                    Fuente: UNESCO.(s. f.). El carnaval de Oruro. Patrimonio Cultural Inmaterial. 
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="pergamino">
-<div class="rollo arriba"></div>
-<div class="rollo abajo"></div>
-<div class="adorno a1">✦</div>
-<div class="adorno a2">✦</div>
-<div class="adorno a3">✦</div>
-<div class="adorno a4">✦</div>
-<h1 class="titulo">Historia de la Virgen del Socavón</h1>
-<div class="linea"></div>
-<div class="texto">
-<p><span class="capital">L</span>a Virgen del Socavón es una de las figuras religiosas y culturales más representativas de Oruro, Bolivia.</p>
-<p>Su historia está profundamente relacionada con la tradición minera, la devoción de los habitantes de Oruro y las expresiones culturales que se manifiestan durante el Carnaval de Oruro.</p>
-<p>La imagen de la Virgen es venerada por miles de personas que llegan al Santuario del Socavón para expresar su fe, realizar promesas y agradecer por los favores recibidos.</p>
-<p>Con el paso del tiempo, esta devoción se convirtió en una parte fundamental de la identidad cultural de Oruro, uniendo religión, música, danza y tradición.</p>
-<p>El Santuario del Socavón se encuentra relacionado con el Cerro Pie de Gallo y con la historia minera de la región, formando parte de uno de los lugares más importantes de la cultura orureña.</p>
-</div>
-</div>
-</div>
+
 <script type="importmap">
-{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
+{
+    "imports":{
+        "three":"https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
 </script>
+
 <script type="module">
-import*as THREE from"three";
-import{OrbitControls}from"three/addons/controls/OrbitControls.js";
-import{GLTFLoader}from"three/addons/loaders/GLTFLoader.js";
-// ESCENA
-const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(45,1,0.1,1000);
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+/* ESCENA */
+const contenedor = document.getElementById("escena");
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(45,1,0.1,1000);
 camera.position.set(0,1.6,6);
-// RENDER
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
+
+/* RENDERIZADO */
+const renderer = new THREE.WebGLRenderer({
+    antialias:true,
+    alpha:true,
+    powerPreference:"high-performance"
+});
+
 renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
-renderer.shadowMap.enabled=true;
-renderer.shadowMap.type=THREE.PCFSoftShadowMap;
-document.getElementById("escena").appendChild(renderer.domElement);
-// CONTROLES
-const controls=new OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;
-controls.enablePan=false;
-controls.enableZoom=true;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+
+contenedor.appendChild(renderer.domElement);
+
+/* CONTROLES DEL MOUSE */
+const controls = new OrbitControls(camera,renderer.domElement);
+
+controls.enableDamping = true;
+controls.dampingFactor = 0.055;
+controls.enableRotate = true;
+controls.enableZoom = true;
+controls.enablePan = false;
+controls.minDistance = 3;
+controls.maxDistance = 9;
+controls.minPolarAngle = 0.2;
+controls.maxPolarAngle = Math.PI - 0.2;
 controls.target.set(0,1.1,0);
-controls.minDistance=3;
-controls.maxDistance=9;
 controls.update();
-// LUCES
-const ambiente=new THREE.AmbientLight(0xffffff,1.5);
+
+/* LUCES */
+const ambiente = new THREE.AmbientLight(0xffffff,1.7);
 scene.add(ambiente);
-const luzFrontal=new THREE.DirectionalLight(0xffe8c2,3.5);
+
+const luzFrontal = new THREE.DirectionalLight(0xffe8c2,4.5);
 luzFrontal.position.set(-3,6,5);
-luzFrontal.castShadow=true;
+luzFrontal.castShadow = true;
 scene.add(luzFrontal);
-const luzAzul=new THREE.PointLight(0x315cff,1300,15);
+
+const luzAzul = new THREE.PointLight(0x315cff,140,15);
 luzAzul.position.set(-2,3,4);
 scene.add(luzAzul);
-// MODELO
-const loader=new GLTFLoader();
-loader.load("./frentevirgen.glb",function(gltf){
-const modelo=gltf.scene;
-modelo.scale.set(4.2,4.2,4.2);
-modelo.position.set(0,1.3,0);
-modelo.rotation.y=-7.8;
-modelo.traverse(function(obj){
-if(obj.isMesh){
-obj.castShadow=true;
-obj.receiveShadow=true;
-}
-});
-scene.add(modelo);
-},undefined,function(error){
-console.error("Error cargando frentevirgen.glb:",error);
-});
-// ANIMACIÓN
+
+const luzLateral = new THREE.PointLight(0x7894ff,65,12);
+luzLateral.position.set(3,2,1);
+scene.add(luzLateral);
+
+const luzTrasera = new THREE.PointLight(0x6d39ff,80,10);
+luzTrasera.position.set(0,3,-3);
+scene.add(luzTrasera);
+
+/* CARGAR VIRGEN 3D */
+const loader = new GLTFLoader();
+let modeloVirgen = null;
+
+loader.load(
+    "./frentevirgen.glb",
+
+    function(gltf){
+
+        modeloVirgen = gltf.scene;
+
+        modeloVirgen.scale.set(4.4,4.4,4.4);
+        modeloVirgen.position.set(0,1.3,0);
+        modeloVirgen.rotation.y = -7.8;
+
+        modeloVirgen.traverse(function(obj){
+            if(obj.isMesh){
+                obj.castShadow = true;
+                obj.receiveShadow = true;
+
+                if(obj.material){
+                    obj.material.needsUpdate = true;
+                }
+            }
+        });
+
+        scene.add(modeloVirgen);
+    },
+
+    function(progreso){
+        if(progreso.total > 0){
+            const porcentaje = Math.round(
+                progreso.loaded / progreso.total * 100
+            );
+            console.log("Cargando Virgen: " + porcentaje + "%");
+        }
+    },
+
+    function(error){
+        console.error(
+            "No se pudo cargar frentevirgen.glb. Verifica la ruta.",
+            error
+        );
+    }
+);
+
+/* AJUSTAR TAMAÑO */
 function ajustar(){
-const cont=document.getElementById("escena");
-const ancho=cont.clientWidth;
-const alto=cont.clientHeight;
-camera.aspect=ancho/alto;
-camera.updateProjectionMatrix();
-renderer.setSize(ancho,alto);
+
+    const ancho = contenedor.clientWidth;
+    const alto = contenedor.clientHeight;
+
+    if(ancho === 0 || alto === 0) return;
+
+    camera.aspect = ancho / alto;
+    camera.updateProjectionMatrix();
+    renderer.setSize(ancho,alto);
 }
-function animate(){
-requestAnimationFrame(animate);
-controls.update();
-renderer.render(scene,camera);
-}
+
 window.addEventListener("resize",ajustar);
+
+/* ANIMACIÓN Y ROTACIÓN AUTOMÁTICA */
+const reloj = new THREE.Clock();
+
+function animate(){
+
+    requestAnimationFrame(animate);
+
+    const delta = reloj.getDelta();
+
+    if(modeloVirgen){
+        modeloVirgen.rotation.y += delta * 0.22;
+    }
+
+    controls.update();
+    renderer.render(scene,camera);
+}
+
 ajustar();
 animate();
 </script>
+
 </body>
 </html>
